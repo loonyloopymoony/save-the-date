@@ -11,199 +11,87 @@
             justify-content: center;
             align-items: center;
             background: #F6F2EA;
-            overflow: hidden; /* Prevents scrollbars during flip */
+            font-family: sans-serif;
         }
 
-        /* This container ensures the flip effect stays centered in the viewport */
-        #book-container {
+        /* The container that holds the perspective for the 3D flip */
+        .card-container {
+            width: 480px;
+            height: 680px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        /* The element that actually flips */
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            filter: drop-shadow(0 40px 80px rgba(0,0,0,0.15));
+        }
+
+        /* The flip action */
+        .card-container.is-flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* Front and Back common styles */
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: white;
+            border: 6px solid #D4AF37;
+            border-radius: 14px;
+            box-sizing: border-box;
+            padding: 14px;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%;
-            height: 100%;
         }
 
-       #book {
-  /* Must match your JS dimensions exactly */
-  width: 480px; 
-  height: 680px;
-  
-  /* Centers the book itself */
-  margin: 0 auto; 
-  
-  /* Prevents the 'tiling' you saw in the screenshot */
-  position: relative; 
-  overflow: hidden; 
-  
-  filter: drop-shadow(0 40px 80px rgba(0,0,0,0.25));
-}
+        /* Back side needs to be rotated 180deg initially */
+        .card-back {
+            transform: rotateY(180deg);
+        }
 
-.page {
-  /* The library will handle positioning, but we want to 
-     ensure they don't default to 'inline' behavior */
-  display: none; 
-  width: 480px;
-  height: 680px;
-  background: white;
-  border: 6px solid #D4AF37;
-  border-radius: 14px;
-  box-sizing: border-box;
-  padding: 14px;
-}
-
-        .page img {
+        img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Changed to cover for a more seamless look */
-            border-radius: 10px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.18);
-            border: 1px solid rgba(0,0,0,0.08);
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .hint {
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
+            text-align: center;
+            color: #8a7b5d;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
-<div id="book-container">
-    <div id="book">
-        <div class="page" data-density="hard">
-            <img src="pages/page1.jpg">
+    <div class="card-container" onclick="this.classList.toggle('is-flipped')">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="pages/page1.jpg" alt="Front">
+            </div>
+            
+            <div class="card-back">
+                <img src="pages/page2.jpg" alt="Back">
+            </div>
         </div>
-        <div class="page" data-density="hard">
-            <img src="pages/page2.jpg">
-        </div>
+        <div class="hint">Click to flip</div>
     </div>
-</div>
-
-<script src="https://unpkg.com/page-flip/dist/js/page-flip.browser.js"></script>
-<script>
-    const pageFlip = new St.PageFlip(
-        document.getElementById("book"),
-        {
-            width: 480,
-            height: 680,
-            size: "fixed",
-            // This is the key: Portrait mode only shows one page at a time
-            mode: "portrait", 
-            // Ensures the 'cover' doesn't offset to the right
-            showCover: false, 
-            mobileScrollSupport: false,
-            clickEventForward: true
-        }
-    );
-
-    pageFlip.loadFromHTML(document.querySelectorAll(".page"));
-</script>
 
 </body>
-</html><!DOCTYPE html>
-<html>
-
-<head>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Gayathri & Krishna — Save the Date</title>
-
-<style>
-
-body{
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  /* wedding paper tone */
-  background:#F6F2EA;
-}
-
-#book{
-  width:960px;
-  height:680px;
-  
-  filter: drop-shadow(0 40px 80px rgba(0,0,0,0.25));
-}
-  
-.page{
-  width:480px;
-  height:680px;
-
-  background:white;
-
-  /* wedding invitation border */
-  border:6px solid #D4AF37;
-
-  border-radius:14px;
-
-  box-shadow:
-  0 25px 60px rgba(0,0,0,0.18),
-  0 8px 20px rgba(0,0,0,0.12);
-}
-
-.page{
-  padding:14px;
-}
-
-.page{
-  transform-origin: left center;
-}
-  
-.page img{
-width:100%;
-height:100%;
-object-fit: contain;
-border-radius:10px;
-
-/* realistic card shadow */
-box-shadow:
-0 15px 35px rgba(0,0,0,0.18),
-0 5px 10px rgba(0,0,0,0.12);
-
-/* subtle paper edge */
-border:1px solid rgba(0,0,0,0.08);
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div id="book">
-
-<div class="page">
-<img src="pages/page1.jpg">
-</div>
-
-<div class="page">
-<img src="pages/page2.jpg">
-</div>
-
-</div>
-
-<script src="https://unpkg.com/page-flip/dist/js/page-flip.browser.js"></script>
-
-<script>
-
-const pageFlip = new St.PageFlip(
-  document.getElementById("book"),
-  {
-    width: 480,
-    height: 680,
-    size: "fixed",
-    mode: "portrait", // Forces single-page view
-    showCover: false, // Disables the 'book cover' offset
-    mobileScrollSupport: false,
-    usePortrait: true,
-    flippingTime: 1000
-  }
-);
-
-// This ensures the pages only appear once the library has 'tamed' them
-pageFlip.loadFromHTML(document.querySelectorAll(".page"));
-
-</script>
-
-</body>
-
 </html>
