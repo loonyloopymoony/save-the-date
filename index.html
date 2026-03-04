@@ -10,13 +10,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Deepened the gradient for better sparkle contrast */
             background: radial-gradient(circle, #fffdfa 0%, #f1ebe0 100%);
             overflow: hidden;
             font-family: sans-serif;
+            touch-action: none; /* Prevents mobile scroll while playing with sparkles */
         }
 
-        /* Particle Layer */
         #particles-js {
             position: absolute;
             width: 100%;
@@ -29,10 +28,9 @@
 
         .magazine-wrapper {
             position: relative;
-            /* Sizing based on the image aspect ratio */
             width: 90vw;
             max-width: 480px;
-            height: 85vh;
+            height: 75vh;
             max-height: 680px;
             cursor: pointer;
             filter: drop-shadow(0 20px 50px rgba(0,0,0,0.15));
@@ -46,9 +44,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: transparent; /* Removed white box background */
-            border: none; /* Removed golden box completely */
-            box-sizing: border-box;
+            background: transparent;
             transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.8s;
             backface-visibility: hidden;
         }
@@ -56,7 +52,6 @@
         .page-back { z-index: 1; }
         .page-front { z-index: 2; transform-origin: top center; }
 
-        /* The Roll Animation */
         .magazine-wrapper.is-rolled .page-front {
             transform: rotateX(115deg) translateY(-100%) scaleY(0.4);
             opacity: 0;
@@ -66,19 +61,24 @@
         img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Keeps your image borders and text perfectly visible */
+            object-fit: contain;
         }
 
         .hint {
             position: absolute;
-            bottom: -50px;
+            bottom: -60px;
             width: 100%;
             text-align: center;
             color: #8a7b5d;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 4px;
-            font-weight: 300;
+            font-weight: 400;
+        }
+
+        @media (max-width: 600px) {
+            .magazine-wrapper { height: 70vh; }
+            .hint { bottom: -40px; }
         }
     </style>
 </head>
@@ -100,30 +100,68 @@
     <script>
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": ["#D4AF37", "#FFF7E0", "#E3C676"] }, /* Multi-tone gold */
-                "shape": { "type": "circle" },
+                "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": ["#D4AF37", "#FFF7E0"] },
+                "shape": { "type": "star" },
                 "opacity": { 
-                    "value": 0.8, 
+                    "value": 0.6, 
                     "random": true, 
                     "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } 
                 },
                 "size": { 
                     "value": 4, 
                     "random": true, 
-                    "anim": { "enable": true, "speed": 4, "size_min": 0.3, "sync": false } 
+                    "anim": { "enable": true, "speed": 2, "size_min": 0.5, "sync": false } 
                 },
+                "line_linked": { "enable": false },
                 "move": {
                     "enable": true,
-                    "speed": 1.5,
+                    "speed": 1,
                     "direction": "top",
                     "random": true,
-                    "straight": false,
                     "out_mode": "out"
                 }
             },
-            "interactivity": { "detect_on": "canvas", "events": { "onclick": { "enable": false } } },
+            "interactivity": {
+                "detect_on": "window",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "bubble" /* Creates a shimmer effect on hover */
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push" /* Adds more stars on click */
+                    }
+                },
+                "modes": {
+                    "bubble": { "distance": 100, "size": 8, "duration": 2, "opacity": 1, "speed": 3 },
+                    "push": { "particles_nb": 4 }
+                }
+            },
             "retina_detect": true
+        });
+
+        // Custom Magic Sparkle Trail logic
+        document.addEventListener('mousemove', function(e) {
+            if(Math.random() > 0.8) { // Only create a star 20% of the time to keep it clean
+                window.pJSDom[0].pJS.particles.array.push(
+                    new window.pJSDom[0].pJS.fn.vendors.createParticle(
+                        { "x": e.clientX, "y": e.clientY }
+                    )
+                );
+            }
+        });
+
+        document.addEventListener('touchmove', function(e) {
+            let touch = e.touches[0];
+            if(Math.random() > 0.7) {
+                window.pJSDom[0].pJS.particles.array.push(
+                    new window.pJSDom[0].pJS.fn.vendors.createParticle(
+                        { "x": touch.clientX, "y": touch.clientY }
+                    )
+                );
+            }
         });
     </script>
 
