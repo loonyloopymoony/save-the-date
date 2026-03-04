@@ -12,10 +12,10 @@
             align-items: center;
             background: #F6F2EA;
             overflow: hidden;
+            font-family: sans-serif;
         }
 
-        /* The container that holds both pages stacked */
-        .magazine-cover {
+        .stage {
             position: relative;
             width: 480px;
             height: 680px;
@@ -23,10 +23,9 @@
             filter: drop-shadow(0 40px 80px rgba(0,0,0,0.15));
         }
 
-        .page {
+        /* The Details Page (stays at the back) */
+        .page-back {
             position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             background: white;
@@ -34,31 +33,60 @@
             border-radius: 14px;
             box-sizing: border-box;
             padding: 14px;
-            transition: all 0.9s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        /* Bottom Page (Details) - Stays still */
-        .page-bottom {
             z-index: 1;
         }
 
-        /* Top Page (Cover) - Slides and fades */
-        .page-top {
+        /* The Curtain Halves (Page 1 split) */
+        .curtain {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
             z-index: 2;
+            overflow: hidden; /* This hides the "other half" of the image */
+            background: white;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            box-sizing: border-box;
+            border: 6px solid #D4AF37;
         }
 
-        /* The Reveal Animation */
-        .magazine-cover.is-revealed .page-top {
-            transform: translateY(-100%) scale(0.95); /* Slides up and shrinks slightly */
-            opacity: 0;
-            pointer-events: none; /* Allows clicking the bottom page if needed */
+        .curtain-left {
+            left: 0;
+            border-right: none;
+            border-radius: 14px 0 0 14px;
         }
 
-        img {
+        .curtain-right {
+            right: 0;
+            border-left: none;
+            border-radius: 0 14px 14px 0;
+        }
+
+        /* Positioning the image inside the half-containers */
+        .curtain img {
+            position: absolute;
+            height: calc(100% - 28px); /* Account for padding */
+            width: 452px; /* Original width minus borders/padding */
+            top: 14px;
+            object-fit: contain; /* Prevents cropping */
+        }
+
+        .curtain-left img { left: 14px; }
+        .curtain-right img { right: 14px; }
+
+        /* Reveal Action */
+        .stage.is-revealed .curtain-left {
+            transform: translateX(-100%);
+        }
+
+        .stage.is-revealed .curtain-right {
+            transform: translateX(100%);
+        }
+
+        .page-back img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
+            object-fit: contain; /* Prevents cropping */
         }
 
         .hint {
@@ -67,7 +95,6 @@
             width: 100%;
             text-align: center;
             color: #8a7b5d;
-            font-family: sans-serif;
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -76,17 +103,21 @@
 </head>
 <body>
 
-    <div class="magazine-cover" onclick="this.classList.toggle('is-revealed')">
+    <div class="stage" onclick="this.classList.toggle('is-revealed')">
         
-        <div class="page page-bottom">
+        <div class="page-back">
             <img src="pages/page2.jpg" alt="Details">
         </div>
 
-        <div class="page page-top">
+        <div class="curtain curtain-left">
             <img src="pages/page1.jpg" alt="Cover">
         </div>
 
-        <div class="hint">Tap to Open</div>
+        <div class="curtain curtain-right">
+            <img src="pages/page1.jpg" alt="Cover">
+        </div>
+
+        <div class="hint">Tap to Reveal</div>
     </div>
 
 </body>
