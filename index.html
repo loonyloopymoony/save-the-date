@@ -23,7 +23,7 @@ body{
 #book{
   width:960px;
   height:680px;
-  margin:auto;
+  
   filter: drop-shadow(0 40px 80px rgba(0,0,0,0.25));
 }
   
@@ -45,6 +45,10 @@ body{
 
 .page{
   padding:14px;
+}
+
+.page{
+  transform-origin: left center;
 }
   
 .page img{
@@ -85,13 +89,17 @@ border:1px solid rgba(0,0,0,0.08);
 <script>
 
 const pageFlip = new St.PageFlip(
-document.getElementById("book"),
-{
-width:480,
-height:680,
-showCover:true,
-mobileScrollSupport:false
-}
+  document.getElementById("book"),
+  {
+    width: 480,
+    height: 680,
+
+    size: "fixed",
+    showCover: true,
+    usePortrait: true,
+    autoSize: false,
+    mobileScrollSupport: false
+  }
 );
 
 pageFlip.loadFromHTML(document.querySelectorAll(".page"));
