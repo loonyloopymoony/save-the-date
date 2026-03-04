@@ -15,17 +15,21 @@
             font-family: sans-serif;
         }
 
-        .container {
+        /* The master container - this is what stays centered */
+        .magazine-wrapper {
             position: relative;
             width: 480px;
             height: 680px;
             cursor: pointer;
             filter: drop-shadow(0 40px 80px rgba(0,0,0,0.15));
-            perspective: 1500px;
+            perspective: 2000px;
         }
 
+        /* Common style for both layers to ensure they stack perfectly */
         .page {
-            position: absolute;
+            position: absolute; /* KEY FIX: This stacks the pages on top of each other */
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             background: white;
@@ -33,47 +37,32 @@
             border-radius: 14px;
             box-sizing: border-box;
             padding: 14px;
-            overflow: hidden;
-            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1), 
-                        opacity 0.8s ease;
+            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.8s;
+            backface-visibility: hidden;
         }
 
-        /* The Details (Page 2) - Stays flat */
+        /* Bottom Layer (Details) */
         .page-back {
             z-index: 1;
         }
 
-        /* The Cover (Page 1) - Rolls up */
+        /* Top Layer (Cover) */
         .page-front {
             z-index: 2;
             transform-origin: top center;
         }
 
-        /* Shine effect to make it look like rolling paper */
-        .page-front::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(0,0,0,0.05) 100%);
-            opacity: 0;
-            transition: opacity 1s;
-            pointer-events: none;
-        }
-
         /* The Roll Animation */
-        .container.is-rolled .page-front {
+        .magazine-wrapper.is-rolled .page-front {
             transform: rotateX(110deg) translateY(-100%) scaleY(0.5);
             opacity: 0;
-        }
-
-        .container.is-rolled .page-front::after {
-            opacity: 1;
+            pointer-events: none;
         }
 
         img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Keeps your borders and aspect ratio intact */
+            object-fit: contain; /* Keeps borders and aspect ratio perfect */
             border-radius: 8px;
         }
 
@@ -91,7 +80,7 @@
 </head>
 <body>
 
-    <div class="container" onclick="this.classList.toggle('is-rolled')">
+    <div class="magazine-wrapper" onclick="this.classList.toggle('is-rolled')">
         
         <div class="page page-back">
             <img src="pages/page2.jpg" alt="Details">
@@ -102,129 +91,6 @@
         </div>
 
         <div class="hint">Tap to Open</div>
-    </div>
-
-</body>
-</html><!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gayathri & Krishna — Save the Date</title>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #F6F2EA;
-            overflow: hidden;
-            font-family: sans-serif;
-        }
-
-        .stage {
-            position: relative;
-            width: 480px;
-            height: 680px;
-            cursor: pointer;
-            filter: drop-shadow(0 40px 80px rgba(0,0,0,0.15));
-        }
-
-        /* The Details Page (stays at the back) */
-        .page-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: white;
-            border: 6px solid #D4AF37;
-            border-radius: 14px;
-            box-sizing: border-box;
-            padding: 14px;
-            z-index: 1;
-        }
-
-        /* The Curtain Halves (Page 1 split) */
-        .curtain {
-            position: absolute;
-            top: 0;
-            width: 50%;
-            height: 100%;
-            z-index: 2;
-            overflow: hidden; /* This hides the "other half" of the image */
-            background: white;
-            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
-            box-sizing: border-box;
-            border: 6px solid #D4AF37;
-        }
-
-        .curtain-left {
-            left: 0;
-            border-right: none;
-            border-radius: 14px 0 0 14px;
-        }
-
-        .curtain-right {
-            right: 0;
-            border-left: none;
-            border-radius: 0 14px 14px 0;
-        }
-
-        /* Positioning the image inside the half-containers */
-        .curtain img {
-            position: absolute;
-            height: calc(100% - 28px); /* Account for padding */
-            width: 452px; /* Original width minus borders/padding */
-            top: 14px;
-            object-fit: contain; /* Prevents cropping */
-        }
-
-        .curtain-left img { left: 14px; }
-        .curtain-right img { right: 14px; }
-
-        /* Reveal Action */
-        .stage.is-revealed .curtain-left {
-            transform: translateX(-100%);
-        }
-
-        .stage.is-revealed .curtain-right {
-            transform: translateX(100%);
-        }
-
-        .page-back img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Prevents cropping */
-        }
-
-        .hint {
-            position: absolute;
-            bottom: -40px;
-            width: 100%;
-            text-align: center;
-            color: #8a7b5d;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="stage" onclick="this.classList.toggle('is-revealed')">
-        
-        <div class="page-back">
-            <img src="pages/page2.jpg" alt="Details">
-        </div>
-
-        <div class="curtain curtain-left">
-            <img src="pages/page1.jpg" alt="Cover">
-        </div>
-
-        <div class="curtain curtain-right">
-            <img src="pages/page1.jpg" alt="Cover">
-        </div>
-
-        <div class="hint">Tap to Reveal</div>
     </div>
 
 </body>
