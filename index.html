@@ -12,23 +12,35 @@
 body{
 margin:0;
 background:#FBF7F2;
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
-font-family:Arial;
+
+/* gives depth to flip animation */
+perspective:2000px;
 }
 
 #book{
 width:480px;
 height:680px;
+margin:auto;
+position:relative;
 }
 
 .page img{
 width:100%;
 height:100%;
 object-fit:cover;
-border-radius:8px;
+border-radius:10px;
+
+/* realistic card shadow */
+box-shadow:
+0 15px 35px rgba(0,0,0,0.18),
+0 5px 10px rgba(0,0,0,0.12);
+
+/* subtle paper edge */
+border:1px solid rgba(0,0,0,0.08);
 }
 
 </style>
