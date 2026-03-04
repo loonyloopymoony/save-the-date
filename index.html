@@ -9,15 +9,15 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            /* Anchors all content to the top */
             justify-content: flex-start; 
             align-items: center;
             background: radial-gradient(circle, #fffdfa 0%, #f1ebe0 100%);
             overflow: hidden;
             font-family: 'Playfair Display', serif;
             touch-action: none;
-            /* Minimal padding to keep it from hitting the very edge */
-            padding-top: 2vh; 
+            padding-top: 2vh;
+            /* Added cursor pointer to the whole screen */
+            cursor: pointer;
         }
 
         #particles-js {
@@ -31,7 +31,8 @@
         header {
             z-index: 3;
             text-align: center;
-            margin-bottom: 15px; /* Tightened space */
+            margin-bottom: 15px;
+            pointer-events: none; /* Let clicks pass through to body */
         }
 
         header h1 {
@@ -48,10 +49,10 @@
             width: 88vw;
             max-width: 440px; 
             aspect-ratio: 480 / 680;
-            cursor: pointer;
             filter: drop-shadow(0 20px 50px rgba(0,0,0,0.12));
             perspective: 2000px;
             z-index: 2;
+            pointer-events: none; /* Let clicks pass through to body */
         }
 
         .page {
@@ -66,10 +67,10 @@
         .page-back { z-index: 1; }
         .page-front { z-index: 2; transform-origin: top center; }
 
-        .magazine-wrapper.is-rolled .page-front {
+        /* The class is now toggled on the body, so we target the card via body.is-rolled */
+        body.is-rolled .page-front {
             transform: rotateX(110deg) translateY(-100%) scaleY(0.4);
             opacity: 0;
-            pointer-events: none;
         }
 
         img {
@@ -84,7 +85,7 @@
             text-transform: uppercase;
             letter-spacing: 3px;
             z-index: 3;
-            opacity: 0.8;
+            pointer-events: none;
         }
 
         @media (max-width: 600px) {
@@ -95,7 +96,7 @@
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body onclick="this.classList.toggle('is-rolled')">
 
     <div id="particles-js"></div>
 
@@ -103,7 +104,7 @@
         <h1>Wedding Invitation</h1>
     </header>
 
-    <div class="magazine-wrapper" onclick="this.classList.toggle('is-rolled')">
+    <div class="magazine-wrapper">
         <div class="page page-back">
             <img src="pages/page2.jpg" alt="Details">
         </div>
@@ -112,13 +113,13 @@
         </div>
     </div>
 
-    <div class="hint">Tap to Open</div>
+    <div class="hint">Tap</div>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 55, "density": { "enable": true, "value_area": 800 } },
+                "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
                 "color": { "value": ["#D4AF37", "#FFF7E0"] },
                 "shape": { "type": "star" },
                 "opacity": { "value": 0.6, "random": true },
@@ -128,15 +129,22 @@
             }
         });
 
-        // Touch Sparkle Trail
-        document.addEventListener('touchmove', function(e) {
-            let touch = e.touches[0];
-            if(Math.random() > 0.75) {
+        const createStar = (x, y) => {
+            if (window.pJSDom && window.pJSDom[0]) {
                 window.pJSDom[0].pJS.particles.array.push(
-                    new window.pJSDom[0].pJS.fn.vendors.createParticle({ "x": touch.clientX, "y": touch.clientY })
+                    new window.pJSDom[0].pJS.fn.vendors.createParticle({ "x": x, "y": y })
                 );
             }
+        };
+
+        window.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.85) createStar(e.clientX, e.clientY);
         });
+
+        window.addEventListener('touchmove', (e) => {
+            let touch = e.touches[0];
+            if (Math.random() > 0.75) createStar(touch.clientX, touch.clientY);
+        }, { passive: true });
     </script>
 </body>
 </html>
