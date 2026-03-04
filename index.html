@@ -10,28 +10,47 @@
 <style>
 
 body{
-margin:0;
-background:#FBF7F2;
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 
-/* gives depth to flip animation */
-perspective:2000px;
+  /* wedding paper tone */
+  background:#F6F2EA;
 }
 
 #book{
-width:480px;
-height:680px;
-margin:auto;
-position:relative;
+  width:960px;
+  height:680px;
+  margin:auto;
+  filter: drop-shadow(0 40px 80px rgba(0,0,0,0.25));
+}
+  
+.page{
+  width:480px;
+  height:680px;
+
+  background:white;
+
+  /* wedding invitation border */
+  border:6px solid #D4AF37;
+
+  border-radius:14px;
+
+  box-shadow:
+  0 25px 60px rgba(0,0,0,0.18),
+  0 8px 20px rgba(0,0,0,0.12);
 }
 
+.page{
+  padding:14px;
+}
+  
 .page img{
 width:100%;
 height:100%;
-object-fit:cover;
+object-fit: contain;
 border-radius:10px;
 
 /* realistic card shadow */
