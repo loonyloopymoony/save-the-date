@@ -10,49 +10,77 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #F6F2EA;
+            /* Subtle Radial Gradient */
+            background: radial-gradient(circle, #fffdfa 0%, #f6f2ea 100%);
             overflow: hidden;
             font-family: sans-serif;
         }
 
-        /* The master container - this is what stays centered */
-        .magazine-wrapper {
-            position: relative;
-            width: 480px;
-            height: 680px;
-            cursor: pointer;
-            filter: drop-shadow(0 40px 80px rgba(0,0,0,0.15));
-            perspective: 2000px;
+        /* Soft Paper Texture Overlay */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.05;
+            pointer-events: none;
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            z-index: 0;
         }
 
-        /* Common style for both layers to ensure they stack perfectly */
+        /* Particle Container */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .magazine-wrapper {
+            position: relative;
+            width: 90vw; /* Responsive width */
+            max-width: 480px;
+            height: 80vh; /* Responsive height */
+            max-height: 680px;
+            cursor: pointer;
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.12));
+            perspective: 2000px;
+            z-index: 2;
+        }
+
         .page {
-            position: absolute; /* KEY FIX: This stacks the pages on top of each other */
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: white;
+            /* Default: Golden border for desktop */
             border: 6px solid #D4AF37;
             border-radius: 14px;
             box-sizing: border-box;
-            padding: 14px;
+            padding: 12px;
             transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.8s;
             backface-visibility: hidden;
         }
 
-        /* Bottom Layer (Details) */
-        .page-back {
-            z-index: 1;
+        /* MOBILE FIX: Remove golden box/border on small screens */
+        @media (max-width: 600px) {
+            .page {
+                border: none;
+                padding: 0;
+                border-radius: 8px;
+            }
+            .magazine-wrapper {
+                filter: drop-shadow(0 15px 30px rgba(0,0,0,0.1));
+            }
         }
 
-        /* Top Layer (Cover) */
-        .page-front {
-            z-index: 2;
-            transform-origin: top center;
-        }
+        .page-back { z-index: 1; }
+        .page-front { z-index: 2; transform-origin: top center; }
 
-        /* The Roll Animation */
         .magazine-wrapper.is-rolled .page-front {
             transform: rotateX(110deg) translateY(-100%) scaleY(0.5);
             opacity: 0;
@@ -62,36 +90,59 @@
         img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Keeps borders and aspect ratio perfect */
-            border-radius: 8px;
+            object-fit: contain;
+            border-radius: 6px;
         }
 
         .hint {
             position: absolute;
-            bottom: -40px;
+            bottom: -50px;
             width: 100%;
             text-align: center;
             color: #8a7b5d;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            opacity: 0.7;
         }
     </style>
 </head>
 <body>
 
+    <div id="particles-js"></div>
+
     <div class="magazine-wrapper" onclick="this.classList.toggle('is-rolled')">
-        
         <div class="page page-back">
             <img src="pages/page2.jpg" alt="Details">
         </div>
-
         <div class="page page-front">
             <img src="pages/page1.jpg" alt="Cover">
         </div>
-
         <div class="hint">Tap to Open</div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#D4AF37" }, /* Gold sparkles */
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.3, "random": true },
+                "size": { "value": 3, "random": true },
+                "move": {
+                    "enable": true,
+                    "speed": 1,
+                    "direction": "top", /* Drifts upward */
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out"
+                }
+            },
+            "interactivity": { "detect_on": "canvas", "events": { "onclick": { "enable": false } } },
+            "retina_detect": true
+        });
+    </script>
 
 </body>
 </html>
