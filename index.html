@@ -23,23 +23,33 @@
             height: 100%;
         }
 
-        #book {
-            /* Width and height must match the JS config exactly */
-            width: 480px; 
-            height: 680px;
-            filter: drop-shadow(0 40px 80px rgba(0,0,0,0.25));
-        }
+       #book {
+  /* Must match your JS dimensions exactly */
+  width: 480px; 
+  height: 680px;
+  
+  /* Centers the book itself */
+  margin: 0 auto; 
+  
+  /* Prevents the 'tiling' you saw in the screenshot */
+  position: relative; 
+  overflow: hidden; 
+  
+  filter: drop-shadow(0 40px 80px rgba(0,0,0,0.25));
+}
 
-        .page {
-            width: 480px;
-            height: 680px;
-            background: white;
-            border: 6px solid #D4AF37;
-            border-radius: 14px;
-            box-sizing: border-box; /* Ensures border is included in width */
-            padding: 14px;
-            /* Remove manual transform-origin, the library handles it */
-        }
+.page {
+  /* The library will handle positioning, but we want to 
+     ensure they don't default to 'inline' behavior */
+  display: none; 
+  width: 480px;
+  height: 680px;
+  background: white;
+  border: 6px solid #D4AF37;
+  border-radius: 14px;
+  box-sizing: border-box;
+  padding: 14px;
+}
 
         .page img {
             width: 100%;
@@ -180,15 +190,16 @@ const pageFlip = new St.PageFlip(
   {
     width: 480,
     height: 680,
-
     size: "fixed",
-    showCover: true,
+    mode: "portrait", // Forces single-page view
+    showCover: false, // Disables the 'book cover' offset
+    mobileScrollSupport: false,
     usePortrait: true,
-    autoSize: false,
-    mobileScrollSupport: false
+    flippingTime: 1000
   }
 );
 
+// This ensures the pages only appear once the library has 'tamed' them
 pageFlip.loadFromHTML(document.querySelectorAll(".page"));
 
 </script>
