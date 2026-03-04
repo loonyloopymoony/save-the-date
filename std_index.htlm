@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Gayathri & Krishna — Save the Date</title>
+
+<style>
+
+body{
+margin:0;
+background:#FBF7F2;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+font-family:Arial;
+}
+
+#book{
+width:480px;
+height:680px;
+}
+
+.page img{
+width:100%;
+height:100%;
+object-fit:cover;
+border-radius:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="book">
+
+<div class="page">
+<img src="pages/page1.jpg">
+</div>
+
+<div class="page">
+<img src="pages/page2.jpg">
+</div>
+
+</div>
+
+<script src="https://unpkg.com/page-flip/dist/js/page-flip.browser.js"></script>
+
+<script>
+
+const pageFlip = new St.PageFlip(
+document.getElementById("book"),
+{
+width:480,
+height:680,
+showCover:true,
+mobileScrollSupport:false
+}
+);
+
+pageFlip.loadFromHTML(document.querySelectorAll(".page"));
+
+</script>
+
+</body>
+
+</html>
