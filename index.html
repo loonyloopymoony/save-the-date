@@ -9,14 +9,15 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            /* Changed from center to flex-start to pull content UP */
+            /* Anchors all content to the top */
             justify-content: flex-start; 
             align-items: center;
             background: radial-gradient(circle, #fffdfa 0%, #f1ebe0 100%);
             overflow: hidden;
             font-family: 'Playfair Display', serif;
             touch-action: none;
-            padding-top: 5vh; /* Small padding from the very top */
+            /* Minimal padding to keep it from hitting the very edge */
+            padding-top: 2vh; 
         }
 
         #particles-js {
@@ -27,24 +28,15 @@
             pointer-events: none;
         }
 
-        /* Traditional Ganapati Icon */
-        .ganapati-icon {
-            z-index: 3;
-            width: 60px;
-            height: auto;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.3));
-        }
-
         header {
             z-index: 3;
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 15px; /* Tightened space */
         }
 
         header h1 {
             color: #8a7b5d;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             letter-spacing: 5px;
             text-transform: uppercase;
             font-weight: 300;
@@ -53,8 +45,8 @@
 
         .magazine-wrapper {
             position: relative;
-            width: 85vw;
-            max-width: 420px; /* Slightly smaller to fit higher on screen */
+            width: 88vw;
+            max-width: 440px; 
             aspect-ratio: 480 / 680;
             cursor: pointer;
             filter: drop-shadow(0 20px 50px rgba(0,0,0,0.12));
@@ -86,19 +78,19 @@
         }
 
         .hint {
-            margin-top: 25px; /* Space below the card */
+            margin-top: 20px;
             color: #8a7b5d;
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 3px;
             z-index: 3;
+            opacity: 0.8;
         }
 
         @media (max-width: 600px) {
-            body { padding-top: 3vh; }
-            header h1 { font-size: 1.2rem; }
-            .magazine-wrapper { width: 80vw; }
-            .ganapati-icon { width: 50px; }
+            body { padding-top: 4vh; }
+            header h1 { font-size: 1.3rem; }
+            .magazine-wrapper { width: 82vw; }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
@@ -106,8 +98,6 @@
 <body>
 
     <div id="particles-js"></div>
-
-    <img src="https://img.icons8.com/color/96/ganesh.png" class="ganapati-icon" alt="Lord Ganesha">
 
     <header>
         <h1>Wedding Invitation</h1>
@@ -128,20 +118,20 @@
     <script>
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
+                "number": { "value": 55, "density": { "enable": true, "value_area": 800 } },
                 "color": { "value": ["#D4AF37", "#FFF7E0"] },
                 "shape": { "type": "star" },
                 "opacity": { "value": 0.6, "random": true },
                 "size": { "value": 4, "random": true },
                 "line_linked": { "enable": false },
-                "move": { "enable": true, "speed": 1, "direction": "top", "out_mode": "out" }
+                "move": { "enable": true, "speed": 1.1, "direction": "top", "out_mode": "out" }
             }
         });
 
-        // Touch Sparkles
+        // Touch Sparkle Trail
         document.addEventListener('touchmove', function(e) {
             let touch = e.touches[0];
-            if(Math.random() > 0.7) {
+            if(Math.random() > 0.75) {
                 window.pJSDom[0].pJS.particles.array.push(
                     new window.pJSDom[0].pJS.fn.vendors.createParticle({ "x": touch.clientX, "y": touch.clientY })
                 );
