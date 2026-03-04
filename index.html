@@ -6,14 +6,14 @@
     <style>
         body {
             margin: 0;
-            height: 100vh;
+            height: 100dvh; /* Dynamic height for better mobile centering */
             display: flex;
             justify-content: center;
             align-items: center;
             background: radial-gradient(circle, #fffdfa 0%, #f1ebe0 100%);
             overflow: hidden;
             font-family: sans-serif;
-            touch-action: none; /* Prevents mobile scroll while playing with sparkles */
+            touch-action: none;
         }
 
         #particles-js {
@@ -28,14 +28,14 @@
 
         .magazine-wrapper {
             position: relative;
-            width: 90vw;
+            width: 85vw;
             max-width: 480px;
-            height: 75vh;
-            max-height: 680px;
+            aspect-ratio: 480 / 680; /* Maintains card shape without skewing */
             cursor: pointer;
             filter: drop-shadow(0 20px 50px rgba(0,0,0,0.15));
             perspective: 2000px;
             z-index: 2;
+            margin-bottom: 20px;
         }
 
         .page {
@@ -66,19 +66,19 @@
 
         .hint {
             position: absolute;
-            bottom: -60px;
+            bottom: -50px;
             width: 100%;
             text-align: center;
             color: #8a7b5d;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 4px;
             font-weight: 400;
         }
 
         @media (max-width: 600px) {
-            .magazine-wrapper { height: 70vh; }
-            .hint { bottom: -40px; }
+            .magazine-wrapper { width: 80vw; }
+            .hint { bottom: -35px; font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -86,7 +86,7 @@
 
     <div id="particles-js"></div>
 
-    <div class="magazine-wrapper" onclick="this.classList.toggle('is-rolled')">
+    <div class="magazine-wrapper" id="invite-card">
         <div class="page page-back">
             <img src="pages/page2.jpg" alt="Details">
         </div>
@@ -98,9 +98,12 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
+        const card = document.getElementById('invite-card');
+        let hasBurst = false;
+
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
+                "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
                 "color": { "value": ["#D4AF37", "#FFF7E0"] },
                 "shape": { "type": "star" },
                 "opacity": { 
@@ -125,14 +128,8 @@
             "interactivity": {
                 "detect_on": "window",
                 "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "bubble" /* Creates a shimmer effect on hover */
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push" /* Adds more stars on click */
-                    }
+                    "onhover": { "enable": true, "mode": "bubble" },
+                    "onclick": { "enable": true, "mode": "push" }
                 },
                 "modes": {
                     "bubble": { "distance": 100, "size": 8, "duration": 2, "opacity": 1, "speed": 3 },
@@ -142,24 +139,32 @@
             "retina_detect": true
         });
 
-        // Custom Magic Sparkle Trail logic
+        // Toggle card and trigger confetti burst
+        card.addEventListener('click', function() {
+            this.classList.toggle('is-rolled');
+            
+            // Trigger burst only when opening for the first time
+            if (this.classList.contains('is-rolled') && !hasBurst) {
+                window.pJSDom[0].pJS.fn.modes.pushParticles(50);
+                hasBurst = true;
+            }
+        });
+
+        // Mouse Trail
         document.addEventListener('mousemove', function(e) {
-            if(Math.random() > 0.8) { // Only create a star 20% of the time to keep it clean
+            if(Math.random() > 0.8) {
                 window.pJSDom[0].pJS.particles.array.push(
-                    new window.pJSDom[0].pJS.fn.vendors.createParticle(
-                        { "x": e.clientX, "y": e.clientY }
-                    )
+                    new window.pJSDom[0].pJS.fn.vendors.createParticle({ "x": e.clientX, "y": e.clientY })
                 );
             }
         });
 
+        // Touch Trail
         document.addEventListener('touchmove', function(e) {
             let touch = e.touches[0];
             if(Math.random() > 0.7) {
                 window.pJSDom[0].pJS.particles.array.push(
-                    new window.pJSDom[0].pJS.fn.vendors.createParticle(
-                        { "x": touch.clientX, "y": touch.clientY }
-                    )
+                    new window.pJSDom[0].pJS.fn.vendors.createParticle({ "x": touch.clientX, "y": touch.clientY })
                 );
             }
         });
