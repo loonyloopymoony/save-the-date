@@ -1,218 +1,695 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Save the Date</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save the Date</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Great+Vibes&display=swap"
+        rel="stylesheet">
 
-<style>
-body {
-    margin: 0;
-    background: #fdf6f0;
-    font-family: 'Cinzel', serif;
-    text-align: center;
-    overflow-x: hidden;
-    color: #5a3e36;
-}
+    <style>
+        body {
+            margin: 0;
+            background: #fdf6f0;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(245, 230, 211, 0.5) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+            font-family: 'Cinzel', serif;
+            text-align: center;
+            overflow-x: hidden;
+            color: #4a3728;
+            min-height: 100vh;
+            cursor: default;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-/* INTRO PAGE */
-#intro {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
+        /* INTRO PAGE */
+        #intro {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+        }
 
-/* KOLAM DRAWING */
-.kolam-svg {
-    width: 100%;
-    max-width: 700px;
-    height: auto;
-    margin-bottom: 20px;
-}
+        /* KOLAM DRAWING */
+        .kolam-svg {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
 
-.draw-text-elegant {
-    font-family: 'Great Vibes', cursive;
-    font-size: 80px;
-    fill: none;
-    stroke: #8b5e3c;
-    stroke-width: 1.2;
-    stroke-dasharray: 1200;
-    stroke-dashoffset: 1200;
-    animation: slowDraw 10s ease-in-out forwards;
-}
+        .draw-text-elegant {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(60px, 15vw, 90px);
+            fill: none;
+            stroke: #8b5e3c;
+            stroke-width: 0.8;
+            stroke-dasharray: 1200;
+            stroke-dashoffset: 1200;
+            animation: slowDraw 7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
 
-@keyframes slowDraw {
-    to { stroke-dashoffset: 0; }
-}
+        @keyframes slowDraw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
 
-/* FADE ANIMATIONS */
-.invite-text, .names, .details, .open-btn {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 2s forwards;
-}
+        /* FADE ANIMATIONS */
+        .invite-text,
+        .names,
+        .details,
+        .countdown-container,
+        .open-btn {
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
 
-/* 1) FASTER REVEAL: Changed delays from 9s, 10.5s, etc. to come in sooner */
-.invite-text { max-width: 650px; animation-delay: 6s; }
-.names { font-family: 'Great Vibes', cursive; font-size: 52px; margin-top: 20px; animation-delay: 7s; }
-.details { margin-top: 10px; animation-delay: 8s; }
-.open-btn { 
-    margin-top: 40px; padding: 14px 34px; border: none; 
-    background: #c89b6d; color: white; border-radius: 30px; 
-    cursor: pointer; animation-delay: 9s; 
-}
+        .invite-text {
+            max-width: 600px;
+            animation-delay: 4.5s;
+            font-size: clamp(14px, 4vw, 17px);
+            line-height: 1.8;
+            font-family: 'Cinzel', serif;
+            color: #6a4f3b;
+        }
 
-@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        .names {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(40px, 10vw, 60px);
+            margin-top: 15px;
+            animation-delay: 5.5s;
+            color: #8b5e3c;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+        }
 
-/* INVITE PAGE */
-#invite {
-    display: none;
-    height: 100vh;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 100px 0 40px 0;
-}
+        .details {
+            margin-top: 8px;
+            animation-delay: 6.5s;
+            font-size: clamp(13px, 3.5vw, 16px);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #a67c52;
+        }
 
-.header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    background: #fdf6f0;
-    padding: 15px 0;
-    z-index: 10;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
+        .countdown-container {
+            animation-delay: 7.5s;
+        }
 
-/* 2) SLOW FADE IN: Card container now has a fade animation upon display */
-.image-container {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 90%;
-    max-width: 420px;
-    perspective: 1000px;
-    opacity: 0;
-    animation: slowReveal 2.5s ease forwards;
-}
+        .open-btn {
+            margin-top: 45px;
+            padding: 14px 44px;
+            border: 1px solid #8b5e3c;
+            background: transparent;
+            color: #8b5e3c;
+            border-radius: 4px;
+            cursor: pointer;
+            animation-delay: 8.5s;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            letter-spacing: 2px;
+            transition: all 0.4s ease;
+        }
 
-@keyframes slowReveal {
-    to { opacity: 1; }
-}
+        .open-btn:hover {
+            background: #8b5e3c;
+            color: #fdf6f0;
+            letter-spacing: 4px;
+        }
 
-.card {
-    width: 100%;
-    aspect-ratio: 480 / 680;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-}
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-.card.flipped { transform: rotateY(180deg); }
+        /* INVITE PAGE */
+        #invite {
+            display: none;
+            min-height: 100vh;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 120px 20px 60px 20px;
+        }
 
-.card-face {
-    position: absolute;
-    width: 100%; height: 100%;
-    backface-visibility: hidden;
-    border-radius: 12px;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-}
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(253, 246, 240, 0.9);
+            backdrop-filter: blur(8px);
+            padding: 12px 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(139, 94, 60, 0.1);
+        }
 
-.card-face img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    border-radius: 12px;
-}
+        .header-title {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #a67c52;
+        }
 
-.card-back { transform: rotateY(180deg); }
+        .header-names {
+            font-family: 'Great Vibes', cursive;
+            font-size: 22px;
+            color: #8b5e3c;
+            margin-top: 4px;
+        }
 
-.directions {
-    margin-top: 20px;
-    padding: 12px 40px;
-    background: #8b5e3c;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 16px;
-    z-index: 5;
-}
+        .image-container {
+            width: 100%;
+            max-width: 420px;
+            perspective: 2000px;
+            opacity: 0;
+            animation: slowReveal 1.5s ease forwards;
+            margin-bottom: 30px;
+        }
 
-/* PETALS */
-.petal {
-    position: fixed; top: -30px; width: 14px; height: 10px;
-    background: #f4b6a6; border-radius: 70% 0 70% 0;
-    opacity: 0.8; animation: fall linear infinite; z-index: 0;
-}
+        @keyframes slowReveal {
+            to {
+                opacity: 1;
+            }
+        }
 
-@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-</style>
+        .card {
+            width: 100%;
+            aspect-ratio: 480 / 680;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 4px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(139, 94, 60, 0.1);
+        }
+
+        .card-face img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* LOWKEY INTERACTION HINT */
+        .shimmer-overlay {
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right,
+                    transparent,
+                    rgba(255, 255, 255, 0.2) 50%,
+                    transparent);
+            transform: skewX(-25deg);
+            pointer-events: none;
+            z-index: 5;
+            animation: shimmer 4s infinite ease-in-out;
+            animation-delay: 2s;
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -150%;
+            }
+
+            30% {
+                left: 150%;
+            }
+
+            100% {
+                left: 150%;
+            }
+        }
+
+        .sparkle-hint {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 18px;
+            color: rgba(253, 246, 240, 0.6);
+            pointer-events: none;
+            z-index: 6;
+            animation: pulseSparkle 3s infinite ease-in-out;
+            transition: opacity 0.8s ease;
+        }
+
+        .sparkle-hint.hidden {
+            opacity: 0;
+        }
+
+        @keyframes pulseSparkle {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.4;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.7;
+            }
+        }
+
+        .card.initial-hint {
+            animation: initialTilt 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation-delay: 0.8s;
+        }
+
+        @keyframes initialTilt {
+            0% {
+                transform: rotateY(0deg);
+            }
+
+            40% {
+                transform: rotateY(15deg);
+            }
+
+            70% {
+                transform: rotateY(0deg);
+            }
+
+            100% {
+                transform: rotateY(0deg);
+            }
+        }
+
+        .directions {
+            margin: 30px 0;
+            padding: 12px 36px;
+            background: transparent;
+            color: #8b5e3c;
+            border: 1px solid #8b5e3c;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .directions:hover {
+            background: rgba(139, 94, 60, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* COUNTDOWN TIMER */
+        .countdown-container {
+            margin-top: 40px;
+            display: flex;
+            gap: clamp(8px, 2vw, 16px);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: rgba(139, 94, 60, 0.03);
+            border: 1px solid rgba(139, 94, 60, 0.15);
+            padding: clamp(10px, 3vw, 20px);
+            border-radius: 4px;
+            min-width: clamp(60px, 15vw, 80px);
+        }
+
+        .countdown-val {
+            font-size: clamp(20px, 5vw, 28px);
+            font-weight: 400;
+            display: block;
+            color: #4a3728;
+        }
+
+        .countdown-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8b5e3c;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* RSVP SECTION */
+        #rsvp-section {
+            margin: 40px auto;
+            padding: clamp(20px, 5vw, 40px);
+            background: rgba(139, 94, 60, 0.03);
+            border: 1px solid rgba(139, 94, 60, 0.15);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        #rsvp-section h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 25px;
+            color: #8b5e3c;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #a67c52;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(139, 94, 60, 0.2);
+            border-radius: 4px;
+            box-sizing: border-box;
+            color: #4a3728;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #8b5e3c;
+            background: white;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #8b5e3c;
+            color: #fdf6f0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #a67c52;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 94, 60, 0.2);
+        }
+
+        /* BUTTONS HOVER & CURSOR */
+        .open-btn,
+        .directions,
+        .card,
+        .submit-btn,
+        select,
+        input {
+            cursor: pointer;
+        }
+
+        /* PETALS */
+        .petal {
+            position: fixed;
+            top: -50px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.8;
+            border-radius: 50% 0 50% 50%;
+            transform-origin: center;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg) translateX(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            90% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg) translateX(50px);
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<div id="intro">
-    <svg class="kolam-svg" viewBox="0 0 600 120">
-        <text x="50%" y="75%" text-anchor="middle" class="draw-text-elegant">
-            Save the Date
-        </text>
-    </svg>
+    <div id="intro">
+        <svg class="kolam-svg" viewBox="0 0 600 120">
+            <text x="50%" y="75%" text-anchor="middle" class="draw-text-elegant">
+                Save the Date
+            </text>
+        </svg>
 
-    <div class="invite-text">
-        By the divine grace of the Almighty and with the blessings of our elders, 
-        we cordially invite you to the auspicious wedding ceremony of
+        <div class="invite-text">
+            By the divine grace of the Almighty and with the blessings of our elders,
+            we cordially invite you to the auspicious wedding ceremony of
+        </div>
+        <div class="names">Gayathri & Krishna</div>
+        <div class="details">June 6 & 7 • Palakkad</div>
+
+        <div class="countdown-container">
+            <div class="countdown-item"><span class="countdown-val" id="days">00</span><span
+                    class="countdown-label">Days</span></div>
+            <div class="countdown-item"><span class="countdown-val" id="hours">00</span><span
+                    class="countdown-label">Hours</span></div>
+            <div class="countdown-item"><span class="countdown-val" id="mins">00</span><span
+                    class="countdown-label">Mins</span></div>
+            <div class="countdown-item"><span class="countdown-val" id="secs">00</span><span
+                    class="countdown-label">Secs</span></div>
+        </div>
+
+        <button class="open-btn" onclick="openInvite()">Open Invitation</button>
     </div>
-    <div class="names">Gayathri & Krishna</div>
-    <div class="details">June 6 & 7 • Palakkad</div>
-    <button class="open-btn" onclick="openInvite()">Open</button>
-</div>
 
-<div id="invite" style="display: none;">
-    <div class="header">
-        <div class="header-title">SAVE THE DATE</div>
-        <div class="header-names">Gayathri & Krishna</div>
-    </div>
+    <div id="invite" style="display: none;">
+        <div class="header">
+            <div class="header-title">SAVE THE DATE</div>
+            <div class="header-names">Gayathri & Krishna</div>
+        </div>
 
-    <div class="image-container">
-        <div class="card" id="card" onclick="flipCard()">
-            <div class="card-face">
-                <img src="pages/page1.jpg" alt="Invitation Front">
+        <div class="image-container">
+            <div class="card" id="card" onclick="flipCard()">
+                <div class="card-face">
+                    <img src="pages/page1.jpg" alt="Invitation Front">
+                    <div class="shimmer-overlay"></div>
+                    <div class="sparkle-hint" id="sparkle-hint">✧</div>
+                </div>
+                <div class="card-face card-back">
+                    <img src="pages/page2.jpg" alt="Invitation Back">
+                </div>
             </div>
-            <div class="card-face card-back">
-                <img src="pages/page2.jpg" alt="Invitation Back">
+        </div>
+
+        <button class="directions" onclick="window.open('https://maps.app.goo.gl/WQfowdpAXrWCoSFt7')">View
+            Directions</button>
+
+        <div id="rsvp-section">
+            <h2>RSVP</h2>
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="guest-name" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label>Will you attend?</label>
+                <select id="is-coming">
+                    <option value="yes">Joyfully Attending</option>
+                    <option value="no">Regretfully Declining</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Number of Guests</label>
+                <input type="number" id="guest-count" value="1" min="1" max="10">
+            </div>
+            <button class="submit-btn" id="submit-btn" onclick="submitRSVP()">Confirm RSVP</button>
+            <div id="rsvp-success" class="hidden" style="margin-top: 20px; color: #2e7d32; font-style: italic;">
+                ✧ Thank you! Your RSVP has been received ✧
             </div>
         </div>
     </div>
 
-    <button class="directions" onclick="window.open('https://maps.app.goo.gl/WQfowdpAXrWCoSFt7')">Directions</button>
-</div>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
-<script>
-function openInvite(){
-    document.getElementById("intro").style.display="none";
-    document.getElementById("invite").style.display="flex";
-}
+    <script>
+        // FIREBASE CONFIGURATION (Placeholder)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
 
-function flipCard(){
-    document.getElementById("card").classList.toggle("flipped");
-}
+        // Initialize Firebase
+        if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
+            firebase.initializeApp(firebaseConfig);
+        }
 
-function createPetal(){
-    const petal=document.createElement("div");
-    petal.className="petal";
-    petal.style.left=Math.random()*100+"vw";
-    petal.style.animationDuration=(6+Math.random()*6)+"s";
-    document.body.appendChild(petal);
-    setTimeout(()=>{ petal.remove(); }, 12000);
-}
-setInterval(createPetal, 600);
-</script>
+        function openInvite() {
+            document.getElementById("intro").style.display = "none";
+            const inviteSection = document.getElementById("invite");
+            inviteSection.style.display = "flex";
+
+            // Add initial hint animation
+            const card = document.getElementById("card");
+            card.classList.add("initial-hint");
+        }
+
+        function flipCard() {
+            const card = document.getElementById("card");
+            card.classList.toggle("flipped");
+
+            // Remove initial hint if first time
+            card.classList.remove("initial-hint");
+
+            const hint = document.getElementById("sparkle-hint");
+            if (hint && !hint.classList.contains('hidden')) {
+                hint.classList.add('hidden');
+            }
+        }
+
+        function createPetal() {
+            const petal = document.createElement("div");
+            petal.className = "petal";
+
+            // Rosy Palette
+            const colors = ['#f497a6', '#f3b0c3', '#ffc5d9', '#fb6d84', '#f1a7b9'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+
+            petal.style.left = Math.random() * 100 + "vw";
+            const size = (Math.random() * 15 + 10) + "px";
+            petal.style.width = size;
+            petal.style.height = (parseFloat(size) * 0.8) + "px";
+            petal.style.background = color;
+            petal.style.opacity = (Math.random() * 0.4 + 0.4);
+
+            // Randomize shape slightly
+            const r1 = Math.random() * 30 + 40;
+            const r2 = Math.random() * 30 + 40;
+            petal.style.borderRadius = `${r1}% ${100 - r1}% ${r2}% ${100 - r2}%`;
+
+            const duration = (Math.random() * 8 + 6) + "s";
+            petal.style.animation = `fall ${duration} linear forwards`;
+
+            document.body.appendChild(petal);
+            setTimeout(() => { petal.remove(); }, parseFloat(duration) * 1000);
+        }
+        setInterval(createPetal, 450);
+
+        // COUNTDOWN LOGIC
+        const weddingDate = new Date("June 7, 2026 07:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById("mins").innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById("secs").innerHTML = seconds.toString().padStart(2, '0');
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.querySelector(".countdown-container").innerHTML = "The Celebration has Begun!";
+            }
+        }
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        function submitRSVP() {
+            const name = document.getElementById("guest-name").value;
+            const attending = document.getElementById("is-coming").value;
+            const count = document.getElementById("guest-count").value;
+
+            if (!name) { alert("Please enter your name"); return; }
+
+            const submitBtn = document.getElementById("submit-btn");
+            submitBtn.innerText = "Sending...";
+            submitBtn.disabled = true;
+
+            const rsvpData = {
+                name: name,
+                attending: attending,
+                count: count,
+                timestamp: Date.now()
+            };
+
+            // If Firebase is initialized, push data
+            if (typeof firebase !== 'undefined' && firebase.apps.length > 0) {
+                firebase.database().ref('rsvps').push(rsvpData)
+                    .then(() => {
+                        showSuccess();
+                    })
+                    .catch((error) => {
+                        console.error("Error saving RSVP:", error);
+                        alert("Something went wrong. Please try again.");
+                        submitBtn.innerText = "Confirm RSVP";
+                        submitBtn.disabled = false;
+                    });
+            } else {
+                // Fallback for demo if not configured
+                console.log("Mock RSVP Save:", rsvpData);
+                setTimeout(() => showSuccess(), 800);
+            }
+        }
+
+        function showSuccess() {
+            document.getElementById("submit-btn").classList.add("hidden");
+            document.getElementById("rsvp-success").classList.remove("hidden");
+        }
+    </script>
 
 </body>
+
 </html>

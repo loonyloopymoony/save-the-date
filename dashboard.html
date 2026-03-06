@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP Dashboard | Gayathri & Krishna</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --cream: #fdf6f0;
+            --sandalwood: #8b5e3c;
+            --gold: #d4af37;
+            --text-dark: #2d241e;
+            --glass: rgba(253, 246, 240, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--cream);
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 40px 20px;
+            background-image: radial-gradient(circle at 10% 20%, rgba(139, 94, 60, 0.03) 0%, transparent 100%);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            text-align: center;
+            color: var(--sandalwood);
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            letter-spacing: 4px;
+        }
+
+        #auth-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .auth-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .auth-card input {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            border: 1px solid rgba(139, 94, 60, 0.2);
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .auth-card button {
+            background: var(--sandalwood);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            text-align: center;
+            border: 1px solid rgba(139, 94, 60, 0.05);
+        }
+
+        .stat-val {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--sandalwood);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .rsvp-list {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+            border: 1px solid rgba(139, 94, 60, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: rgba(139, 94, 60, 0.05);
+            text-align: left;
+            padding: 15px 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            color: var(--sandalwood);
+        }
+
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+            font-size: 0.95rem;
+        }
+
+        .status-pill {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-yes {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-no {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="auth-overlay">
+        <div class="auth-card">
+            <h2 style="font-family: 'Cinzel', serif; color: var(--sandalwood);">Admin Access</h2>
+            <input type="password" id="admin-pass" placeholder="Enter Secret Code">
+            <button onclick="checkAuth()">Login</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="dashboard-content">
+        <h1>RSVP Metrics</h1>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-val" id="total-guests">0</span>
+                <span class="stat-label">Total Guests</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-val" id="total-yes">0</span>
+                <span class="stat-label">Attending</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-val" id="total-no">0</span>
+                <span class="stat-label">Declined</span>
+            </div>
+        </div>
+
+        <div class="rsvp-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Guest Name</th>
+                        <th>Status</th>
+                        <th>Count</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody id="rsvp-table-body">
+                    <!-- Data will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
+    <script>
+        // Placeholder Config - USER needs to fill this
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        let db;
+
+        function checkAuth() {
+            const pass = document.getElementById('admin-pass').value;
+            // High-security placeholder: just type 'iyer' to test
+            if (pass.toLowerCase() === 'iyer') {
+                document.getElementById('auth-overlay').classList.add('hidden');
+                document.getElementById('dashboard-content').classList.remove('hidden');
+                initDashboard();
+            } else {
+                alert('Invalid code');
+            }
+        }
+
+        function initDashboard() {
+            if (firebaseConfig.apiKey === "YOUR_API_KEY") {
+                console.warn("Firebase not configured yet.");
+                return;
+            }
+
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.database();
+
+            const rsvpRef = db.ref('rsvps');
+            rsvpRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                renderData(data);
+            });
+        }
+
+        function renderData(data) {
+            const tableBody = document.getElementById('rsvp-table-body');
+            tableBody.innerHTML = '';
+
+            let totalGuests = 0;
+            let attending = 0;
+            let declined = 0;
+
+            if (!data) return;
+
+            Object.values(data).reverse().forEach(rsvp => {
+                const row = document.createElement('tr');
+                const isComing = rsvp.attending === 'yes';
+
+                if (isComing) {
+                    attending++;
+                    totalGuests += parseInt(rsvp.count || 0);
+                } else {
+                    declined++;
+                }
+
+                row.innerHTML = `
+                    <td>${rsvp.name}</td>
+                    <td><span class="status-pill status-${rsvp.attending}">${isComing ? 'Yes' : 'No'}</span></td>
+                    <td>${rsvp.count || '-'}</td>
+                    <td style="color: #999; font-size: 0.8rem;">${new Date(rsvp.timestamp).toLocaleDateString()}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            document.getElementById('total-guests').innerText = totalGuests;
+            document.getElementById('total-yes').innerText = attending;
+            document.getElementById('total-no').innerText = declined;
+        }
+    </script>
+</body>
+
+</html>
