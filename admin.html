@@ -291,7 +291,7 @@
                     <td>${rsvp.name}</td>
                     <td><span class="status-pill status-${rsvp.attending}">${isComing ? 'Yes' : 'No'}</span></td>
                     <td>${rsvp.count || '-'}</td>
-                    <td style="color: #999; font-size: 0.8rem;">${new Date(rsvp.timestamp).toLocaleDateString()}</td>
+                    <td style="color: #999; font-size: 0.8rem;">${new Date(rsvp.timestamp).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</td>
                 `;
                 tableBody.appendChild(row);
             });
