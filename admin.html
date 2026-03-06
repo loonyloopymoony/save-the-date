@@ -241,8 +241,7 @@
 
         function checkAuth() {
             const pass = document.getElementById('admin-pass').value;
-            // High-security placeholder: just type 'iyer' to test
-            if (pass.toLowerCase() === 'iyer') {
+            if (pass.toLowerCase() === 'meow') {
                 document.getElementById('auth-overlay').classList.add('hidden');
                 document.getElementById('dashboard-content').classList.remove('hidden');
                 initDashboard();
