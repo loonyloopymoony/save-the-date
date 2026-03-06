@@ -1,165 +1,272 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gayathri & Krishna — Save the Date</title>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start; 
-            align-items: center;
-            background: radial-gradient(circle, #fffdfa 0%, #f1ebe0 100%);
-            overflow: hidden;
-            font-family: 'Playfair Display', serif;
-            touch-action: none;
-            padding-top: 2vh;
-            cursor: pointer;
-        }
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-        #particles-js {
-            position: absolute;
-            width: 100%; height: 100%;
-            top: 0; left: 0;
-            z-index: 1;
-            pointer-events: none;
-        }
+<title>Gayathri & Krishna — Save the Date</title>
 
-        header {
-            z-index: 3;
-            text-align: center;
-            margin-bottom: 15px;
-            pointer-events: none;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
 
-        header h1 {
-            color: #8a7b5d;
-            font-size: 1.6rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            font-weight: 300;
-            margin: 0;
-        }
+<style>
 
-        .magazine-wrapper {
-            position: relative;
-            width: 88vw;
-            max-width: 440px; 
-            aspect-ratio: 480 / 680;
-            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.12));
-            perspective: 2000px;
-            z-index: 2;
-        }
+body{
+margin:0;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:radial-gradient(circle,#F8F3E8 0%,#EDE2CF 100%);
+font-family:'Cormorant Garamond',serif;
+overflow:hidden;
+cursor:pointer;
+}
 
-        .page {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: transparent;
-            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.8s;
-            backface-visibility: hidden;
-        }
+header{
+text-align:center;
+margin-bottom:20px;
+z-index:3;
+}
 
-        .page-back { z-index: 1; }
-        .page-front { z-index: 2; transform-origin: top center; }
+header h1{
+font-family:'Playfair Display',serif;
+letter-spacing:4px;
+font-size:1.7rem;
+color:#7A6A4F;
+margin:0;
+}
 
-        body.is-rolled .page-front {
-            transform: rotateX(110deg) translateY(-100%) scaleY(0.4);
-            opacity: 0;
-        }
+header p{
+margin:6px 0 0 0;
+letter-spacing:2px;
+font-size:.9rem;
+color:#8D7B5A;
+}
 
-        img {
-            width: 100%; height: 100%;
-            object-fit: contain;
-        }
+#lotus-container{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:1;
+overflow:hidden;
+}
 
-        .venue-link {
-            position: absolute;
-            top: 10%; 
-            left: 5%;
-            width: 90%;
-            height: 40%;
-            z-index: 10;
-            cursor: pointer;
-            background: rgba(255, 255, 255, 0); 
-        }
+.lotus{
+position:absolute;
+font-size:20px;
+opacity:.7;
+animation:float 12s linear infinite;
+}
 
-        .hint {
-            margin-top: 20px;
-            color: #8a7b5d;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            z-index: 3;
-            pointer-events: none;
-        }
+@keyframes float{
+0%{transform:translateY(100vh) rotate(0deg)}
+100%{transform:translateY(-10vh) rotate(360deg)}
+}
 
-        @media (max-width: 600px) {
-            body { padding-top: 4vh; }
-            header h1 { font-size: 1.3rem; }
-            .magazine-wrapper { width: 82vw; }
-        }
-    </style>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+.magazine-wrapper{
+position:relative;
+width:88vw;
+max-width:440px;
+aspect-ratio:480/680;
+filter:drop-shadow(0 20px 50px rgba(0,0,0,0.12));
+perspective:2000px;
+z-index:2;
+display:none;
+}
+
+.page{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:transparent;
+transition:transform 1.2s cubic-bezier(.645,.045,.355,1),opacity .8s;
+backface-visibility:hidden;
+}
+
+.page-back{z-index:1;}
+
+.page-front{
+z-index:2;
+transform-origin:top center;
+}
+
+body.is-rolled .page-front{
+transform:rotateX(110deg) translateY(-100%) scaleY(.4);
+opacity:0;
+}
+
+img{
+width:100%;
+height:100%;
+object-fit:contain;
+}
+
+.venue-link{
+position:absolute;
+top:10%;
+left:5%;
+width:90%;
+height:40%;
+z-index:10;
+cursor:pointer;
+}
+
+#kolamIntro{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:radial-gradient(circle,#F8F3E8 0%,#EDE2CF 100%);
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:5;
+}
+
+#kolamCanvas{
+width:280px;
+height:280px;
+}
+
+#introText{
+margin-top:20px;
+font-family:'Playfair Display',serif;
+letter-spacing:3px;
+font-size:1.3rem;
+color:#7A6A4F;
+opacity:0;
+transition:opacity 1s;
+text-align:center;
+}
+
+</style>
 </head>
 
 <body onclick="this.classList.toggle('is-rolled')">
 
-    <div id="particles-js"></div>
+<div id="lotus-container"></div>
 
-    <header>
-        <h1>Save The Date</h1>
-    </header>
+<div id="kolamIntro">
 
-    <div class="magazine-wrapper">
-        <div class="page page-back">
-            <a href="https://maps.google.com/?cid=14684307940603514915&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" 
-               target="_blank" 
-               class="venue-link" 
-               onclick="event.stopPropagation();">
-            </a>
-            <img src="pages/page2.jpg" alt="Details">
-        </div>
+<canvas id="kolamCanvas" width="300" height="300"></canvas>
 
-        <div class="page page-front">
-            <img src="pages/page1.jpg" alt="Cover">
-        </div>
-    </div>
+<div id="introText">
+Save the Date<br>
+Gayathri & Krishna
+</div>
 
-    <div class="hint">Tap</div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 55, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": ["#D4AF37", "#FFF7E0"] },
-                "shape": { "type": "star" },
-                "opacity": { "value": 0.6, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1 } },
-                "size": { "value": 4, "random": true, "anim": { "enable": true, "speed": 2, "size_min": 0.5 } },
-                "line_linked": { "enable": false },
-                "move": { "enable": true, "speed": 1.2, "direction": "top", "random": true, "out_mode": "out" }
-            }
-        });
+<header>
+<h1>Gayathri & Krishna</h1>
+<p>Save the Date · June 2026 · Palakkad</p>
+</header>
 
-        const createStar = (x, y) => {
-            if (window.pJSDom && window.pJSDom[0]) {
-                window.pJSDom[0].pJS.particles.array.push(
-                    new window.pJSDom[0].pJS.fn.vendors.createParticle({ "x": x, "y": y })
-                );
-            }
-        };
+<div class="magazine-wrapper">
 
-        window.addEventListener('mousemove', (e) => {
-            if (Math.random() > 0.85) createStar(e.clientX, e.clientY);
-        });
+<div class="page page-back">
 
-        window.addEventListener('touchmove', (e) => {
-            let touch = e.touches[0];
-            if (Math.random() > 0.75) createStar(touch.clientX, touch.clientY);
-        }, { passive: true });
-    </script>
+<a href="https://maps.google.com/?cid=14684307940603514915"
+target="_blank"
+class="venue-link"
+onclick="event.stopPropagation();"></a>
+
+<img src="pages/page2.jpg">
+
+</div>
+
+<div class="page page-front">
+<img src="pages/page1.jpg">
+</div>
+
+</div>
+
+<script>
+
+const canvas=document.getElementById("kolamCanvas");
+const ctx=canvas.getContext("2d");
+
+ctx.strokeStyle="#C7A75B";
+ctx.lineWidth=2;
+
+let step=0;
+
+function drawKolam(){
+
+ctx.beginPath();
+
+let r=100;
+let cx=150;
+let cy=150;
+
+for(let i=0;i<step;i++){
+
+let angle=i*0.1;
+
+let x=cx+r*Math.cos(angle)*Math.sin(angle);
+let y=cy+r*Math.sin(angle)*Math.cos(angle);
+
+ctx.lineTo(x,y);
+
+}
+
+ctx.stroke();
+
+step+=3;
+
+if(step<250){
+
+requestAnimationFrame(drawKolam);
+
+}else{
+
+document.getElementById("introText").style.opacity=1;
+
+setTimeout(()=>{
+
+document.getElementById("kolamIntro").style.display="none";
+document.querySelector(".magazine-wrapper").style.display="block";
+
+},2000)
+
+}
+
+}
+
+drawKolam();
+
+
+function createLotus(){
+
+const lotus=document.createElement("div");
+
+lotus.className="lotus";
+lotus.innerHTML="❀";
+
+lotus.style.left=Math.random()*100+"vw";
+lotus.style.fontSize=(18+Math.random()*12)+"px";
+lotus.style.animationDuration=(10+Math.random()*10)+"s";
+
+document.getElementById("lotus-container").appendChild(lotus);
+
+setTimeout(()=>{
+
+lotus.remove();
+
+},20000)
+
+}
+
+setInterval(createLotus,700);
+
+</script>
+
 </body>
 </html>
