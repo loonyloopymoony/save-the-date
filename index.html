@@ -8,7 +8,7 @@
 
 <title>Gayathri & Krishna — Save the Date</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Great+Vibes&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Great+Vibes&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 
@@ -16,23 +16,28 @@ body{
 margin:0;
 background:#F9F5EF;
 font-family:Inter;
-overflow:hidden;
-cursor:pointer;
+overflow-x:hidden;
 }
 
-/* ---------- INTRO SCREEN ---------- */
+/* INTRO SCREEN */
 
 #intro{
+
 height:100vh;
+
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
+
 text-align:center;
+
+padding-top:40px;
+
 }
 
 svg{
-width:65%;
+width:70%;
 max-width:620px;
 }
 
@@ -49,15 +54,40 @@ stroke-dashoffset:800;
 animation:draw 2s ease forwards;
 }
 
-.delay1{animation-delay:0.3s}
+.delay1{animation-delay:.3s}
 .delay2{animation-delay:1.2s}
 .delay3{animation-delay:2.1s}
 .delay4{animation-delay:3s}
 
 @keyframes draw{
-to{
-stroke-dashoffset:0;
+to{stroke-dashoffset:0}
 }
+
+/* Kolam powder particles */
+
+.powder{
+position:absolute;
+width:6px;
+height:6px;
+background:#F6E4B3;
+border-radius:50%;
+opacity:.8;
+
+animation:powderFade 2s forwards;
+}
+
+@keyframes powderFade{
+
+0%{
+opacity:1;
+transform:scale(1);
+}
+
+100%{
+opacity:0;
+transform:scale(.3);
+}
+
 }
 
 /* Typography */
@@ -66,6 +96,7 @@ stroke-dashoffset:0;
 font-family:'Cormorant Garamond';
 font-size:34px;
 margin-top:20px;
+
 opacity:0;
 animation:fade 2s forwards;
 animation-delay:3.2s;
@@ -74,29 +105,39 @@ animation-delay:3.2s;
 .names{
 font-family:'Great Vibes';
 font-size:62px;
+
 margin-top:10px;
+
 opacity:0;
 animation:fade 2s forwards;
 animation-delay:4.2s;
 }
 
 .date{
-margin-top:5px;
+margin-top:6px;
 font-size:20px;
+
 opacity:0;
 animation:fade 2s forwards;
 animation-delay:5s;
 }
 
 button{
-margin-top:30px;
-padding:12px 34px;
+margin-top:28px;
+
+padding:12px 36px;
+
 border:none;
-border-radius:25px;
+border-radius:30px;
+
 background:#C79A3B;
 color:white;
+
 font-size:16px;
+
 cursor:pointer;
+
+box-shadow:0 8px 20px rgba(0,0,0,.15);
 
 opacity:0;
 animation:fade 2s forwards;
@@ -107,23 +148,106 @@ animation-delay:6s;
 to{opacity:1}
 }
 
-/* ---------- LOTUS PARTICLES ---------- */
+/* WEBSITE */
+
+#site{
+
+display:none;
+
+flex-direction:column;
+
+align-items:center;
+
+padding-top:30px;
+
+padding-bottom:60px;
+
+}
+
+/* Poster */
+
+.poster{
+
+width:90vw;
+max-width:440px;
+
+box-shadow:0 20px 40px rgba(0,0,0,.2);
+
+border-radius:6px;
+
+overflow:hidden;
+
+}
+
+.poster img{
+
+width:100%;
+display:block;
+
+}
+
+/* Directions button */
+
+.directions{
+
+margin-top:26px;
+
+display:flex;
+align-items:center;
+gap:10px;
+
+background:white;
+
+padding:14px 28px;
+
+border-radius:40px;
+
+font-weight:500;
+
+box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+text-decoration:none;
+
+color:#1f2937;
+
+font-size:18px;
+
+}
+
+.directions:hover{
+
+transform:translateY(-2px);
+
+}
+
+/* lotus particles */
 
 #lotus-container{
-position:absolute;
+
+position:fixed;
+
 top:0;
 left:0;
+
 width:100%;
 height:100%;
+
 pointer-events:none;
+
 overflow:hidden;
+
 }
 
 .lotus{
+
 position:absolute;
-font-size:22px;
-opacity:.6;
-animation:float 12s linear infinite;
+
+font-size:20px;
+
+opacity:.5;
+
+animation:float 14s linear infinite;
+
 }
 
 @keyframes float{
@@ -138,88 +262,19 @@ transform:translateY(-10vh) rotate(360deg);
 
 }
 
-/* ---------- INVITATION ---------- */
-
-#site{
-display:none;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-height:100vh;
-}
-
-/* magazine flip */
-
-.magazine-wrapper{
-position:relative;
-width:88vw;
-max-width:440px;
-aspect-ratio:480/680;
-
-filter:drop-shadow(0 20px 50px rgba(0,0,0,0.12));
-perspective:2000px;
-}
-
-.page{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-
-transition:transform 1.2s cubic-bezier(.645,.045,.355,1),opacity .8s;
-
-backface-visibility:hidden;
-}
-
-.page-back{z-index:1}
-
-.page-front{
-z-index:2;
-transform-origin:top center;
-}
-
-body.is-rolled .page-front{
-
-transform:rotateX(110deg) translateY(-100%) scaleY(.4);
-
-opacity:0;
-
-}
-
-img{
-width:100%;
-height:100%;
-object-fit:contain;
-}
-
-.venue-link{
-position:absolute;
-top:10%;
-left:5%;
-width:90%;
-height:40%;
-z-index:10;
-}
-
 </style>
 
 </head>
 
-
-<body onclick="this.classList.toggle('is-rolled')">
-
+<body>
 
 <div id="lotus-container"></div>
 
-
-<!-- INTRO SCREEN -->
+<!-- INTRO -->
 
 <div id="intro">
 
-<svg viewBox="0 0 600 300">
-
-<!-- Kolam loops -->
+<svg id="kolam" viewBox="0 0 600 300">
 
 <path class="stroke delay1"
 d="M150 120 Q200 60 250 120 Q200 180 150 120"/>
@@ -241,54 +296,41 @@ d="M200 60 Q300 10 400 60"/>
 
 <div class="date">June 1 • Palakkad</div>
 
-<button onclick="openInvite(event)">Open Invitation</button>
+<button onclick="openInvite()">Open Invitation</button>
 
 </div>
 
-
-<!-- WEBSITE -->
+<!-- SITE -->
 
 <div id="site">
 
-<div class="magazine-wrapper">
-
-<div class="page page-back">
-
-<a href="https://maps.google.com/?cid=14684307940603514915"
-target="_blank"
-class="venue-link"
-onclick="event.stopPropagation();"></a>
+<div class="poster">
 
 <img src="pages/page2.jpg">
 
 </div>
 
-<div class="page page-front">
+<a class="directions"
+href="https://maps.google.com/?cid=14684307940603514915"
+target="_blank">
 
-<img src="pages/page1.jpg">
+➡ Directions
+
+</a>
 
 </div>
-
-</div>
-
-</div>
-
-
 
 <script>
 
 /* open invite */
 
-function openInvite(e){
-
-e.stopPropagation()
+function openInvite(){
 
 document.getElementById("intro").style.display="none"
 
 document.getElementById("site").style.display="flex"
 
 }
-
 
 /* lotus particles */
 
@@ -304,7 +346,7 @@ lotus.style.left=Math.random()*100+"vw"
 
 lotus.style.fontSize=(18+Math.random()*12)+"px"
 
-lotus.style.animationDuration=(10+Math.random()*10)+"s"
+lotus.style.animationDuration=(12+Math.random()*10)+"s"
 
 document.getElementById("lotus-container").appendChild(lotus)
 
@@ -316,7 +358,35 @@ lotus.remove()
 
 }
 
-setInterval(createLotus,800)
+setInterval(createLotus,900)
+
+/* kolam powder effect */
+
+function powderBurst(){
+
+const svg=document.getElementById("kolam")
+
+const rect=svg.getBoundingClientRect()
+
+for(let i=0;i<12;i++){
+
+const dot=document.createElement("div")
+
+dot.className="powder"
+
+dot.style.left=(rect.left+Math.random()*rect.width)+"px"
+
+dot.style.top=(rect.top+Math.random()*rect.height)+"px"
+
+document.body.appendChild(dot)
+
+setTimeout(()=>dot.remove(),2000)
+
+}
+
+}
+
+setInterval(powderBurst,300)
 
 </script>
 
