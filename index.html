@@ -442,6 +442,10 @@
             cursor: pointer;
         }
 
+        .hidden {
+            display: none !important;
+        }
+
         /* PETALS */
         .petal {
             position: fixed;
@@ -545,14 +549,13 @@
                 <input type="number" id="guest-count" value="1" min="1" max="10">
             </div>
             <button class="submit-btn" id="submit-btn" onclick="submitRSVP()">Confirm RSVP</button>
-            <div id="rsvp-success" class="hidden" style="margin-top: 20px; color: #2e7d32; font-style: italic;">
-                ✧ Thank you! Your RSVP has been received ✧
-            </div>
         </div>
     </div>
 
+    <!-- Firebase and Confetti Libraries -->
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
         // FIREBASE CONFIGURATION (Placeholder)
@@ -668,27 +671,47 @@
 
             // If Firebase is initialized, push data
             if (typeof firebase !== 'undefined' && firebase.apps.length > 0) {
-                firebase.database().ref('rsvps').push(rsvpData)
-                    .then(() => {
-                        // Successfully saved to Firebase
-                        setTimeout(() => showSuccess(), 500);
-                    })
-                    .catch((error) => {
+                firebase.database().ref('rsvps').push(rsvpData, (error) => {
+                    if (error) {
                         console.error("Error saving RSVP:", error);
                         alert("Something went wrong. Please try again.");
                         submitBtn.innerText = "Confirm RSVP";
                         submitBtn.disabled = false;
-                    });
+                    } else {
+                        // Successfully saved to Firebase
+                        setTimeout(() => showSuccess(attending, submitBtn), 500);
+                    }
+                });
             } else {
                 // Fallback for demo if not configured
                 console.log("Mock RSVP Save:", rsvpData);
-                setTimeout(() => showSuccess(), 800);
+                setTimeout(() => showSuccess(attending, submitBtn), 800);
             }
         }
 
-        function showSuccess() {
-            document.getElementById("submit-btn").classList.add("hidden");
-            document.getElementById("rsvp-success").classList.remove("hidden");
+        function showSuccess(attending, buttonElement) {
+            buttonElement.disabled = true;
+            buttonElement.style.cursor = "default";
+
+            if (attending === "yes") {
+                buttonElement.innerHTML = "✧ Thank you! RSVP received ✧";
+
+                // Fire confetti from button position
+                const rect = buttonElement.getBoundingClientRect();
+                const x = (rect.left + (rect.width / 2)) / window.innerWidth;
+                const y = (rect.top + (rect.height / 2)) / window.innerHeight;
+
+                // Force high z-index so it doesn't get hidden behind anything
+                confetti({
+                    particleCount: 150,
+                    spread: 80,
+                    origin: { x: x, y: y },
+                    zIndex: 9999,
+                    colors: ['#f497a6', '#f3b0c3', '#d4af37', '#8b5e3c']
+                });
+            } else {
+                buttonElement.innerHTML = "Response registered. Thank you.";
+            }
         }
     </script>
 
