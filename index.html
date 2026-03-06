@@ -1,395 +1,250 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gayathri & Krishna — Save the Date</title>
+<title>Save the Date</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Great+Vibes&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
 
 body{
 margin:0;
-background:#F9F5EF;
-font-family:Inter;
+background:#fdf6f0;
+font-family:'Cinzel',serif;
 overflow-x:hidden;
+text-align:center;
+color:#5a3e36;
 }
-
-/* INTRO SCREEN */
 
 #intro{
-
 height:100vh;
-
 display:flex;
 flex-direction:column;
-align-items:center;
 justify-content:center;
-
-text-align:center;
-
-padding-top:40px;
-
+align-items:center;
+padding:20px;
 }
 
-svg{
-width:70%;
-max-width:620px;
+.kolam-text{
+width:320px;
+margin-bottom:20px;
 }
 
-/* Kolam draw animation */
-
-.stroke{
-stroke:#C79A3B;
-stroke-width:4;
+.kolam-text path{
+stroke:#8b5e3c;
+stroke-width:2;
 fill:none;
-
-stroke-dasharray:800;
-stroke-dashoffset:800;
-
-animation:draw 2s ease forwards;
+stroke-dasharray:1000;
+stroke-dashoffset:1000;
+animation:draw 4s forwards;
 }
-
-.delay1{animation-delay:.3s}
-.delay2{animation-delay:1.2s}
-.delay3{animation-delay:2.1s}
-.delay4{animation-delay:3s}
 
 @keyframes draw{
-to{stroke-dashoffset:0}
+to{stroke-dashoffset:0;}
 }
 
-/* Kolam powder particles */
-
-.powder{
-position:absolute;
-width:6px;
-height:6px;
-background:#F6E4B3;
-border-radius:50%;
-opacity:.8;
-
-animation:powderFade 2s forwards;
-}
-
-@keyframes powderFade{
-
-0%{
-opacity:1;
-transform:scale(1);
-}
-
-100%{
+.fade-text{
 opacity:0;
-transform:scale(.3);
-}
-
-}
-
-/* Typography */
-
-.saveDate{
-font-family:'Cormorant Garamond';
-font-size:34px;
-margin-top:20px;
-
-opacity:0;
-animation:fade 2s forwards;
-animation-delay:3.2s;
+animation:fadeUp 2s forwards;
+animation-delay:4s;
+max-width:600px;
 }
 
 .names{
-font-family:'Great Vibes';
-font-size:62px;
-
-margin-top:10px;
-
+font-family:'Great Vibes',cursive;
+font-size:48px;
+margin-top:20px;
 opacity:0;
-animation:fade 2s forwards;
-animation-delay:4.2s;
-}
-
-.date{
-margin-top:6px;
-font-size:20px;
-
-opacity:0;
-animation:fade 2s forwards;
-animation-delay:5s;
-}
-
-button{
-margin-top:28px;
-
-padding:12px 36px;
-
-border:none;
-border-radius:30px;
-
-background:#C79A3B;
-color:white;
-
-font-size:16px;
-
-cursor:pointer;
-
-box-shadow:0 8px 20px rgba(0,0,0,.15);
-
-opacity:0;
-animation:fade 2s forwards;
+animation:fadeUp 2s forwards;
 animation-delay:6s;
 }
 
-@keyframes fade{
-to{opacity:1}
+.details{
+margin-top:10px;
+opacity:0;
+animation:fadeUp 2s forwards;
+animation-delay:7s;
 }
 
-/* WEBSITE */
+@keyframes fadeUp{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
 
-#site{
+.open-btn{
+margin-top:40px;
+padding:12px 32px;
+border:none;
+background:#c89b6d;
+color:white;
+font-size:18px;
+cursor:pointer;
+border-radius:30px;
+opacity:0;
+animation:fadeUp 2s forwards;
+animation-delay:8s;
+}
 
+#invite{
 display:none;
-
-flex-direction:column;
-
-align-items:center;
-
 padding-top:30px;
-
-padding-bottom:60px;
-
 }
 
-/* Poster */
-
-.poster{
-
-width:90vw;
-max-width:440px;
-
-box-shadow:0 20px 40px rgba(0,0,0,.2);
-
-border-radius:6px;
-
-overflow:hidden;
-
+.header{
+font-family:'Great Vibes',cursive;
+font-size:36px;
+margin-bottom:10px;
 }
 
-.poster img{
+.image-container{
+position:relative;
+width:90%;
+max-width:420px;
+margin:auto;
+perspective:1000px;
+}
 
+.card{
 width:100%;
-display:block;
-
+transition:transform 0.8s;
+transform-style:preserve-3d;
 }
 
-/* Directions button */
+.card.flipped{
+transform:rotateY(180deg);
+}
+
+.card-face{
+position:absolute;
+width:100%;
+backface-visibility:hidden;
+}
+
+.card-face img{
+width:100%;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card-back{
+transform:rotateY(180deg);
+}
 
 .directions{
-
-margin-top:26px;
-
-display:flex;
-align-items:center;
-gap:10px;
-
-background:white;
-
-padding:14px 28px;
-
-border-radius:40px;
-
-font-weight:500;
-
-box-shadow:0 10px 30px rgba(0,0,0,.15);
-
-text-decoration:none;
-
-color:#1f2937;
-
-font-size:18px;
-
+margin-top:20px;
+padding:10px 28px;
+background:#8b5e3c;
+color:white;
+border:none;
+border-radius:25px;
+cursor:pointer;
 }
 
-.directions:hover{
-
-transform:translateY(-2px);
-
-}
-
-/* lotus particles */
-
-#lotus-container{
-
+.petal{
 position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-pointer-events:none;
-
-overflow:hidden;
-
+top:-20px;
+width:12px;
+height:12px;
+background:#f2b5a7;
+border-radius:50%;
+opacity:0.7;
+animation:fall linear infinite;
 }
 
-.lotus{
-
-position:absolute;
-
-font-size:20px;
-
-opacity:.5;
-
-animation:float 14s linear infinite;
-
+@keyframes fall{
+to{
+transform:translateY(110vh) rotate(360deg);
 }
-
-@keyframes float{
-
-0%{
-transform:translateY(110vh) rotate(0deg);
-}
-
-100%{
-transform:translateY(-10vh) rotate(360deg);
-}
-
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div id="lotus-container"></div>
-
-<!-- INTRO -->
-
 <div id="intro">
 
-<svg id="kolam" viewBox="0 0 600 300">
-
-<path class="stroke delay1"
-d="M150 120 Q200 60 250 120 Q200 180 150 120"/>
-
-<path class="stroke delay2"
-d="M350 120 Q400 60 450 120 Q400 180 350 120"/>
-
-<path class="stroke delay3"
-d="M250 200 Q300 150 350 200 Q300 250 250 200"/>
-
-<path class="stroke delay4"
-d="M200 60 Q300 10 400 60"/>
-
+<svg class="kolam-text" viewBox="0 0 500 100">
+<path d="M10 60 Q100 10 200 60 T390 60"/>
+<path d="M50 80 Q140 30 240 80 T430 80"/>
 </svg>
 
-<div class="saveDate">Save the Date</div>
+<div class="fade-text">
+By the divine grace of the Almighty and with the blessings of our elders,
+we cordially invite you to the auspicious wedding ceremony of
+</div>
 
-<div class="names">Gayathri & Krishna</div>
+<div class="names">
+Gayathri & Krishna
+</div>
 
-<div class="date">June 1 • Palakkad</div>
+<div class="details">
+June 6 & 7 • Palakkad
+</div>
 
-<button onclick="openInvite()">Open Invitation</button>
+<button class="open-btn" onclick="openInvite()">Open</button>
 
 </div>
 
-<!-- SITE -->
+<div id="invite">
 
-<div id="site">
+<div class="header">
+Save the Date • Gayathri & Krishna
+</div>
 
-<div class="poster">
+<div class="image-container" onclick="flipCard()">
 
-<img src="pages/page2.jpg">
+<div class="card" id="card">
+
+<div class="card-face">
+<img src="page1.jpg">
+</div>
+
+<div class="card-face card-back">
+<img src="page2.jpg">
+</div>
 
 </div>
 
-<a class="directions"
-href="https://maps.google.com/?cid=14684307940603514915"
-target="_blank">
+</div>
 
-➡ Directions
-
-</a>
+<button class="directions">
+Directions
+</button>
 
 </div>
 
 <script>
 
-/* open invite */
-
 function openInvite(){
-
 document.getElementById("intro").style.display="none"
+document.getElementById("invite").style.display="block"
+}
 
-document.getElementById("site").style.display="flex"
+function flipCard(){
+document.getElementById("card").classList.toggle("flipped")
+}
+
+function createPetal(){
+
+const petal=document.createElement("div")
+petal.className="petal"
+
+petal.style.left=Math.random()*100+"vw"
+petal.style.animationDuration=(5+Math.random()*5)+"s"
+
+document.body.appendChild(petal)
+
+setTimeout(()=>petal.remove(),10000)
 
 }
 
-/* lotus particles */
-
-function createLotus(){
-
-const lotus=document.createElement("div")
-
-lotus.className="lotus"
-
-lotus.innerHTML="❀"
-
-lotus.style.left=Math.random()*100+"vw"
-
-lotus.style.fontSize=(18+Math.random()*12)+"px"
-
-lotus.style.animationDuration=(12+Math.random()*10)+"s"
-
-document.getElementById("lotus-container").appendChild(lotus)
-
-setTimeout(()=>{
-
-lotus.remove()
-
-},20000)
-
-}
-
-setInterval(createLotus,900)
-
-/* kolam powder effect */
-
-function powderBurst(){
-
-const svg=document.getElementById("kolam")
-
-const rect=svg.getBoundingClientRect()
-
-for(let i=0;i<12;i++){
-
-const dot=document.createElement("div")
-
-dot.className="powder"
-
-dot.style.left=(rect.left+Math.random()*rect.width)+"px"
-
-dot.style.top=(rect.top+Math.random()*rect.height)+"px"
-
-document.body.appendChild(dot)
-
-setTimeout(()=>dot.remove(),2000)
-
-}
-
-}
-
-setInterval(powderBurst,300)
+setInterval(createPetal,500)
 
 </script>
 
 </body>
-
 </html>
