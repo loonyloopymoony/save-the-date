@@ -26,7 +26,7 @@ body {
     padding: 20px;
 }
 
-/* ELABORATE KOLAM DRAWING */
+/* KOLAM DRAWING */
 .kolam-svg {
     width: 100%;
     max-width: 700px;
@@ -42,7 +42,6 @@ body {
     stroke-width: 1.2;
     stroke-dasharray: 1200;
     stroke-dashoffset: 1200;
-    /* Slowed down to 10s for that patient Kolam feel */
     animation: slowDraw 10s ease-in-out forwards;
 }
 
@@ -57,25 +56,26 @@ body {
     animation: fadeUp 2s forwards;
 }
 
-.invite-text { max-width: 650px; animation-delay: 9s; }
-.names { font-family: 'Great Vibes', cursive; font-size: 52px; margin-top: 20px; animation-delay: 10.5s; }
-.details { margin-top: 10px; animation-delay: 11.5s; }
+/* 1) FASTER REVEAL: Changed delays from 9s, 10.5s, etc. to come in sooner */
+.invite-text { max-width: 650px; animation-delay: 6s; }
+.names { font-family: 'Great Vibes', cursive; font-size: 52px; margin-top: 20px; animation-delay: 7s; }
+.details { margin-top: 10px; animation-delay: 8s; }
 .open-btn { 
     margin-top: 40px; padding: 14px 34px; border: none; 
     background: #c89b6d; color: white; border-radius: 30px; 
-    cursor: pointer; animation-delay: 12.5s; 
+    cursor: pointer; animation-delay: 9s; 
 }
 
 @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-/* INVITE PAGE (CENTERED) */
+/* INVITE PAGE */
 #invite {
     display: none;
     height: 100vh;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Spreads header, card, and button */
+    justify-content: space-between;
     align-items: center;
     padding: 100px 0 40px 0;
 }
@@ -89,7 +89,7 @@ body {
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* CARD CONTAINER */
+/* 2) SLOW FADE IN: Card container now has a fade animation upon display */
 .image-container {
     flex-grow: 1;
     display: flex;
@@ -98,6 +98,12 @@ body {
     width: 90%;
     max-width: 420px;
     perspective: 1000px;
+    opacity: 0;
+    animation: slowReveal 2.5s ease forwards;
+}
+
+@keyframes slowReveal {
+    to { opacity: 1; }
 }
 
 .card {
@@ -184,13 +190,13 @@ body {
         </div>
     </div>
 
-    <button class="directions" onclick="window.open('https://maps.app.goo.gl/yH8hR59nK8Hn1v3F6')">Directions</button>
+    <button class="directions" onclick="window.open('http://googleusercontent.com/maps.google.com/6')">Directions</button>
 </div>
 
 <script>
 function openInvite(){
     document.getElementById("intro").style.display="none";
-    document.getElementById("invite").style.display="flex"; // Switched to flex to maintain centering
+    document.getElementById("invite").style.display="flex";
 }
 
 function flipCard(){
