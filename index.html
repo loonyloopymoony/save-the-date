@@ -14,10 +14,12 @@ body{
 margin:0;
 background:#fdf6f0;
 font-family:'Cinzel',serif;
-overflow-x:hidden;
 text-align:center;
+overflow-x:hidden;
 color:#5a3e36;
 }
+
+/* INTRO PAGE */
 
 #intro{
 height:100vh;
@@ -28,89 +30,124 @@ align-items:center;
 padding:20px;
 }
 
-.kolam-text{
-width:320px;
-margin-bottom:20px;
-}
+/* SVG DRAW TEXT */
 
-.kolam-text path{
-stroke:#8b5e3c;
-stroke-width:2;
+.draw-text{
+font-size:70px;
+font-family:'Cinzel',serif;
 fill:none;
-stroke-dasharray:1000;
-stroke-dashoffset:1000;
-animation:draw 4s forwards;
+stroke:#8b5e3c;
+stroke-width:1.5;
+stroke-dasharray:900;
+stroke-dashoffset:900;
+animation:draw 3s ease forwards;
 }
 
 @keyframes draw{
-to{stroke-dashoffset:0;}
+to{
+stroke-dashoffset:0;
+}
 }
 
-.fade-text{
+/* INVITE TEXT */
+
+.invite-text{
+max-width:650px;
+margin-top:30px;
 opacity:0;
 animation:fadeUp 2s forwards;
-animation-delay:4s;
-max-width:600px;
+animation-delay:3s;
 }
 
 .names{
 font-family:'Great Vibes',cursive;
-font-size:48px;
+font-size:52px;
 margin-top:20px;
 opacity:0;
 animation:fadeUp 2s forwards;
-animation-delay:6s;
+animation-delay:4.5s;
 }
 
 .details{
 margin-top:10px;
+letter-spacing:1px;
 opacity:0;
 animation:fadeUp 2s forwards;
-animation-delay:7s;
+animation-delay:5.5s;
 }
 
 @keyframes fadeUp{
-from{opacity:0; transform:translateY(20px);}
-to{opacity:1; transform:translateY(0);}
+from{
+opacity:0;
+transform:translateY(20px);
 }
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* OPEN BUTTON */
 
 .open-btn{
 margin-top:40px;
-padding:12px 32px;
+padding:14px 34px;
 border:none;
 background:#c89b6d;
 color:white;
 font-size:18px;
-cursor:pointer;
 border-radius:30px;
+cursor:pointer;
 opacity:0;
 animation:fadeUp 2s forwards;
-animation-delay:8s;
+animation-delay:6.5s;
 }
+
+/* INVITE PAGE */
 
 #invite{
 display:none;
-padding-top:30px;
+padding-top:90px;
 }
+
+/* HEADER */
 
 .header{
-font-family:'Great Vibes',cursive;
-font-size:36px;
-margin-bottom:10px;
+position:fixed;
+top:0;
+left:0;
+right:0;
+background:#fdf6f0;
+padding:15px 0;
+z-index:10;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
 }
 
+.header-title{
+font-size:20px;
+letter-spacing:3px;
+}
+
+.header-names{
+font-family:'Great Vibes',cursive;
+font-size:30px;
+margin-top:5px;
+}
+
+/* CARD */
+
 .image-container{
-position:relative;
+margin:auto;
 width:90%;
 max-width:420px;
-margin:auto;
 perspective:1000px;
 }
 
 .card{
 width:100%;
-transition:transform 0.8s;
+position:relative;
 transform-style:preserve-3d;
+transition:transform 0.8s;
 }
 
 .card.flipped{
@@ -126,31 +163,37 @@ backface-visibility:hidden;
 .card-face img{
 width:100%;
 border-radius:12px;
-box-shadow:0 10px 25px rgba(0,0,0,0.15);
+box-shadow:0 12px 30px rgba(0,0,0,0.15);
 }
 
 .card-back{
 transform:rotateY(180deg);
 }
 
+/* DIRECTIONS BUTTON */
+
 .directions{
-margin-top:20px;
-padding:10px 28px;
+margin-top:25px;
+padding:12px 30px;
 background:#8b5e3c;
 color:white;
 border:none;
 border-radius:25px;
 cursor:pointer;
+font-size:16px;
 }
+
+/* LOTUS PETALS */
 
 .petal{
 position:fixed;
-top:-20px;
-width:12px;
-height:12px;
-background:#f2b5a7;
-border-radius:50%;
-opacity:0.7;
+top:-30px;
+width:14px;
+height:10px;
+background:#f4b6a6;
+border-radius:70% 0 70% 0;
+opacity:0.8;
+transform:rotate(45deg);
 animation:fall linear infinite;
 }
 
@@ -165,14 +208,17 @@ transform:translateY(110vh) rotate(360deg);
 
 <body>
 
+<!-- INTRO PAGE -->
+
 <div id="intro">
 
-<svg class="kolam-text" viewBox="0 0 500 100">
-<path d="M10 60 Q100 10 200 60 T390 60"/>
-<path d="M50 80 Q140 30 240 80 T430 80"/>
+<svg width="500" height="120">
+<text x="50%" y="70%" text-anchor="middle" class="draw-text">
+Save the Date
+</text>
 </svg>
 
-<div class="fade-text">
+<div class="invite-text">
 By the divine grace of the Almighty and with the blessings of our elders,
 we cordially invite you to the auspicious wedding ceremony of
 </div>
@@ -189,10 +235,13 @@ June 6 & 7 • Palakkad
 
 </div>
 
+<!-- INVITE PAGE -->
+
 <div id="invite">
 
 <div class="header">
-Save the Date • Gayathri & Krishna
+<div class="header-title">SAVE THE DATE</div>
+<div class="header-names">Gayathri & Krishna</div>
 </div>
 
 <div class="image-container" onclick="flipCard()">
@@ -211,9 +260,7 @@ Save the Date • Gayathri & Krishna
 
 </div>
 
-<button class="directions">
-Directions
-</button>
+<button class="directions">Directions</button>
 
 </div>
 
@@ -224,9 +271,13 @@ document.getElementById("intro").style.display="none"
 document.getElementById("invite").style.display="block"
 }
 
+/* CARD FLIP */
+
 function flipCard(){
 document.getElementById("card").classList.toggle("flipped")
 }
+
+/* LOTUS PETAL GENERATOR */
 
 function createPetal(){
 
@@ -234,15 +285,17 @@ const petal=document.createElement("div")
 petal.className="petal"
 
 petal.style.left=Math.random()*100+"vw"
-petal.style.animationDuration=(5+Math.random()*5)+"s"
+petal.style.animationDuration=(6+Math.random()*6)+"s"
 
 document.body.appendChild(petal)
 
-setTimeout(()=>petal.remove(),10000)
+setTimeout(()=>{
+petal.remove()
+},12000)
 
 }
 
-setInterval(createPetal,500)
+setInterval(createPetal,600)
 
 </script>
 
