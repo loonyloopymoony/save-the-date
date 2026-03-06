@@ -670,7 +670,8 @@
             if (typeof firebase !== 'undefined' && firebase.apps.length > 0) {
                 firebase.database().ref('rsvps').push(rsvpData)
                     .then(() => {
-                        showSuccess();
+                        // Successfully saved to Firebase
+                        setTimeout(() => showSuccess(), 500);
                     })
                     .catch((error) => {
                         console.error("Error saving RSVP:", error);
