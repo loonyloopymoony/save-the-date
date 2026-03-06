@@ -1,324 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Save the Date</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
-
-body{
-margin:0;
-background:#fdf6f0;
-font-family:'Playfair Display',serif;
-text-align:center;
-overflow-x:hidden;
-color:#5a3e36;
+body {
+    margin: 0;
+    background: #fdf6f0;
+    font-family: 'Cinzel', serif;
+    text-align: center;
+    overflow-x: hidden;
+    color: #5a3e36;
 }
 
 /* INTRO PAGE */
-
-#intro{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-padding:20px;
+#intro {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
-/* DRAW TEXT */
-
-.draw-text{
-font-size:90px;
-font-family:'Playfair Display',serif;
-
-fill:none;
-stroke:#8b5e3c;
-stroke-width:1.2;
-
-stroke-dasharray:2000;
-stroke-dashoffset:2000;
-
-animation:draw 8s ease forwards;
+/* ELABORATE KOLAM DRAWING */
+.kolam-svg {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    margin-bottom: 20px;
 }
 
-@keyframes draw{
-0%{stroke-dashoffset:2000;}
-100%{stroke-dashoffset:0;}
+.draw-text-elegant {
+    font-family: 'Great Vibes', cursive;
+    font-size: 80px;
+    fill: none;
+    stroke: #8b5e3c;
+    stroke-width: 1.2;
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    /* Slowed down to 10s for that patient Kolam feel */
+    animation: slowDraw 10s ease-in-out forwards;
 }
 
-/* INVITE TEXT */
-
-.invite-text{
-max-width:650px;
-margin-top:30px;
-opacity:0;
-animation:fadeUp 2s forwards;
-animation-delay:4s;
+@keyframes slowDraw {
+    to { stroke-dashoffset: 0; }
 }
 
-.names{
-font-family:'Great Vibes',cursive;
-font-size:60px;
-margin-top:20px;
-opacity:0;
-animation:fadeUp 2s forwards;
-animation-delay:5s;
+/* FADE ANIMATIONS */
+.invite-text, .names, .details, .open-btn {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 2s forwards;
 }
 
-.details{
-margin-top:10px;
-letter-spacing:2px;
-opacity:0;
-animation:fadeUp 2s forwards;
-animation-delay:6s;
+.invite-text { max-width: 650px; animation-delay: 9s; }
+.names { font-family: 'Great Vibes', cursive; font-size: 52px; margin-top: 20px; animation-delay: 10.5s; }
+.details { margin-top: 10px; animation-delay: 11.5s; }
+.open-btn { 
+    margin-top: 40px; padding: 14px 34px; border: none; 
+    background: #c89b6d; color: white; border-radius: 30px; 
+    cursor: pointer; animation-delay: 12.5s; 
 }
 
-@keyframes fadeUp{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-/* OPEN BUTTON */
-
-.open-btn{
-margin-top:40px;
-padding:14px 36px;
-border:none;
-background:#c89b6d;
-color:white;
-font-size:18px;
-border-radius:30px;
-cursor:pointer;
-
-opacity:0;
-animation:fadeUp 2s forwards;
-animation-delay:7s;
+/* INVITE PAGE (CENTERED) */
+#invite {
+    display: none;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Spreads header, card, and button */
+    align-items: center;
+    padding: 100px 0 40px 0;
 }
 
-/* INVITE PAGE */
-
-#invite{
-display:none;
-padding-top:110px;
+.header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: #fdf6f0;
+    padding: 15px 0;
+    z-index: 10;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* HEADER */
-
-.header{
-position:fixed;
-top:0;
-left:0;
-right:0;
-background:#fdf6f0;
-padding:15px 0;
-z-index:10;
-box-shadow:0 2px 10px rgba(0,0,0,0.05);
+/* CARD CONTAINER */
+.image-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    max-width: 420px;
+    perspective: 1000px;
 }
 
-.header-title{
-font-size:20px;
-letter-spacing:3px;
+.card {
+    width: 100%;
+    aspect-ratio: 480 / 680;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
 }
 
-.header-names{
-font-family:'Great Vibes',cursive;
-font-size:32px;
-margin-top:5px;
+.card.flipped { transform: rotateY(180deg); }
+
+.card-face {
+    position: absolute;
+    width: 100%; height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
 }
 
-/* CARD */
-
-.image-container{
-margin:120px auto 20px auto;
-width:90%;
-max-width:420px;
-
-perspective:1000px;
-
-display:flex;
-justify-content:center;
+.card-face img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
 }
 
-.card{
-width:100%;
-position:relative;
+.card-back { transform: rotateY(180deg); }
 
-transform-style:preserve-3d;
-transition:transform 0.8s;
+.directions {
+    margin-top: 20px;
+    padding: 12px 40px;
+    background: #8b5e3c;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 5;
 }
 
-.card.flipped{
-transform:rotateY(180deg);
+/* PETALS */
+.petal {
+    position: fixed; top: -30px; width: 14px; height: 10px;
+    background: #f4b6a6; border-radius: 70% 0 70% 0;
+    opacity: 0.8; animation: fall linear infinite; z-index: 0;
 }
 
-.card-face{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-
-backface-visibility:hidden;
-}
-
-.card-face img{
-width:100%;
-border-radius:12px;
-box-shadow:0 12px 30px rgba(0,0,0,0.15);
-}
-
-.card-back{
-transform:rotateY(180deg);
-}
-
-/* DIRECTIONS BUTTON */
-
-.directions{
-display:block;
-margin:40px auto 0 auto;
-
-padding:12px 30px;
-background:#8b5e3c;
-color:white;
-
-border:none;
-border-radius:25px;
-
-cursor:pointer;
-font-size:16px;
-}
-
-/* LOTUS PETALS */
-
-.petal{
-position:fixed;
-top:-30px;
-width:14px;
-height:10px;
-background:#f3b4a3;
-
-border-radius:70% 0 70% 0;
-opacity:0.6;
-
-transform:rotate(45deg);
-
-animation:fall linear infinite;
-}
-
-@keyframes fall{
-to{
-transform:translateY(110vh) rotate(360deg);
-}
-}
-
+@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 </style>
 </head>
-
 <body>
 
-<!-- INTRO PAGE -->
-
 <div id="intro">
+    <svg class="kolam-svg" viewBox="0 0 600 120">
+        <text x="50%" y="75%" text-anchor="middle" class="draw-text-elegant">
+            Save the Date
+        </text>
+    </svg>
 
-<svg width="600" height="120">
-<text x="50%" y="70%" text-anchor="middle" class="draw-text">
-Save the Date
-</text>
-</svg>
-
-<div class="invite-text">
-By the divine grace of the Almighty and with the blessings of our elders,
-we cordially invite you to the auspicious wedding ceremony of
+    <div class="invite-text">
+        By the divine grace of the Almighty and with the blessings of our elders, 
+        we cordially invite you to the auspicious wedding ceremony of
+    </div>
+    <div class="names">Gayathri & Krishna</div>
+    <div class="details">June 6 & 7 • Palakkad</div>
+    <button class="open-btn" onclick="openInvite()">Open</button>
 </div>
 
-<div class="names">
-Gayathri & Krishna
-</div>
+<div id="invite" style="display: none;">
+    <div class="header">
+        <div class="header-title">SAVE THE DATE</div>
+        <div class="header-names">Gayathri & Krishna</div>
+    </div>
 
-<div class="details">
-June 6 & 7 • Palakkad
-</div>
+    <div class="image-container">
+        <div class="card" id="card" onclick="flipCard()">
+            <div class="card-face">
+                <img src="pages/page1.jpg" alt="Invitation Front">
+            </div>
+            <div class="card-face card-back">
+                <img src="pages/page2.jpg" alt="Invitation Back">
+            </div>
+        </div>
+    </div>
 
-<button class="open-btn" onclick="openInvite()">Open</button>
-
-</div>
-
-<!-- INVITE PAGE -->
-
-<div id="invite">
-
-<div class="header">
-<div class="header-title">SAVE THE DATE</div>
-<div class="header-names">Gayathri & Krishna</div>
-</div>
-
-<div class="image-container" onclick="flipCard()">
-
-<div class="card" id="card">
-
-<div class="card-face">
-<img src="pages/page1.jpg">
-</div>
-
-<div class="card-face card-back">
-<img src="pages/page2.jpg">
-</div>
-
-</div>
-
-</div>
-
-<button class="directions"
-onclick="window.open('https://maps.app.goo.gl/tDYQznmWRsXJ22yo7','_blank')">
-Directions
-</button>
-
+    <button class="directions" onclick="window.open('https://maps.app.goo.gl/yH8hR59nK8Hn1v3F6')">Directions</button>
 </div>
 
 <script>
-
 function openInvite(){
-document.getElementById("intro").style.display="none"
-document.getElementById("invite").style.display="block"
+    document.getElementById("intro").style.display="none";
+    document.getElementById("invite").style.display="flex"; // Switched to flex to maintain centering
 }
-
-/* CARD FLIP */
 
 function flipCard(){
-document.getElementById("card").classList.toggle("flipped")
+    document.getElementById("card").classList.toggle("flipped");
 }
-
-/* LOTUS PETAL GENERATOR */
 
 function createPetal(){
-
-const petal=document.createElement("div")
-petal.className="petal"
-
-petal.style.left=Math.random()*100+"vw"
-petal.style.animationDuration=(8+Math.random()*8)+"s"
-
-document.body.appendChild(petal)
-
-setTimeout(()=>{
-petal.remove()
-},12000)
-
+    const petal=document.createElement("div");
+    petal.className="petal";
+    petal.style.left=Math.random()*100+"vw";
+    petal.style.animationDuration=(6+Math.random()*6)+"s";
+    document.body.appendChild(petal);
+    setTimeout(()=>{ petal.remove(); }, 12000);
 }
-
-setInterval(createPetal,700)
-
+setInterval(createPetal, 600);
 </script>
 
 </body>
