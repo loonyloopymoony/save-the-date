@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Save the Date</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
 
 body{
 margin:0;
 background:#fdf6f0;
-font-family:'Cinzel',serif;
+font-family:'Playfair Display',serif;
 text-align:center;
 overflow-x:hidden;
 color:#5a3e36;
@@ -30,23 +31,25 @@ align-items:center;
 padding:20px;
 }
 
-/* SVG DRAW TEXT */
+/* DRAW TEXT */
 
 .draw-text{
-font-size:70px;
-font-family:'Cinzel',serif;
+font-size:90px;
+font-family:'Playfair Display',serif;
+
 fill:none;
 stroke:#8b5e3c;
-stroke-width:1.5;
-stroke-dasharray:900;
-stroke-dashoffset:900;
-animation:draw 3s ease forwards;
+stroke-width:1.2;
+
+stroke-dasharray:2000;
+stroke-dashoffset:2000;
+
+animation:draw 8s ease forwards;
 }
 
 @keyframes draw{
-to{
-stroke-dashoffset:0;
-}
+0%{stroke-dashoffset:2000;}
+100%{stroke-dashoffset:0;}
 }
 
 /* INVITE TEXT */
@@ -56,24 +59,24 @@ max-width:650px;
 margin-top:30px;
 opacity:0;
 animation:fadeUp 2s forwards;
-animation-delay:3s;
+animation-delay:4s;
 }
 
 .names{
 font-family:'Great Vibes',cursive;
-font-size:52px;
+font-size:60px;
 margin-top:20px;
 opacity:0;
 animation:fadeUp 2s forwards;
-animation-delay:4.5s;
+animation-delay:5s;
 }
 
 .details{
 margin-top:10px;
-letter-spacing:1px;
+letter-spacing:2px;
 opacity:0;
 animation:fadeUp 2s forwards;
-animation-delay:5.5s;
+animation-delay:6s;
 }
 
 @keyframes fadeUp{
@@ -91,23 +94,24 @@ transform:translateY(0);
 
 .open-btn{
 margin-top:40px;
-padding:14px 34px;
+padding:14px 36px;
 border:none;
 background:#c89b6d;
 color:white;
 font-size:18px;
 border-radius:30px;
 cursor:pointer;
+
 opacity:0;
 animation:fadeUp 2s forwards;
-animation-delay:6.5s;
+animation-delay:7s;
 }
 
 /* INVITE PAGE */
 
 #invite{
 display:none;
-padding-top:90px;
+padding-top:110px;
 }
 
 /* HEADER */
@@ -130,22 +134,27 @@ letter-spacing:3px;
 
 .header-names{
 font-family:'Great Vibes',cursive;
-font-size:30px;
+font-size:32px;
 margin-top:5px;
 }
 
 /* CARD */
 
 .image-container{
-margin:auto;
+margin:120px auto 20px auto;
 width:90%;
 max-width:420px;
+
 perspective:1000px;
+
+display:flex;
+justify-content:center;
 }
 
 .card{
 width:100%;
 position:relative;
+
 transform-style:preserve-3d;
 transition:transform 0.8s;
 }
@@ -156,7 +165,10 @@ transform:rotateY(180deg);
 
 .card-face{
 position:absolute;
+top:0;
+left:0;
 width:100%;
+
 backface-visibility:hidden;
 }
 
@@ -173,12 +185,16 @@ transform:rotateY(180deg);
 /* DIRECTIONS BUTTON */
 
 .directions{
-margin-top:25px;
+display:block;
+margin:40px auto 0 auto;
+
 padding:12px 30px;
 background:#8b5e3c;
 color:white;
+
 border:none;
 border-radius:25px;
+
 cursor:pointer;
 font-size:16px;
 }
@@ -190,10 +206,13 @@ position:fixed;
 top:-30px;
 width:14px;
 height:10px;
-background:#f4b6a6;
+background:#f3b4a3;
+
 border-radius:70% 0 70% 0;
-opacity:0.8;
+opacity:0.6;
+
 transform:rotate(45deg);
+
 animation:fall linear infinite;
 }
 
@@ -212,7 +231,7 @@ transform:translateY(110vh) rotate(360deg);
 
 <div id="intro">
 
-<svg width="500" height="120">
+<svg width="600" height="120">
 <text x="50%" y="70%" text-anchor="middle" class="draw-text">
 Save the Date
 </text>
@@ -249,18 +268,21 @@ June 6 & 7 • Palakkad
 <div class="card" id="card">
 
 <div class="card-face">
-<img src="page1.jpg">
+<img src="pages/page1.jpg">
 </div>
 
 <div class="card-face card-back">
-<img src="page2.jpg">
+<img src="pages/page2.jpg">
 </div>
 
 </div>
 
 </div>
 
-<button class="directions">Directions</button>
+<button class="directions"
+onclick="window.open('https://maps.app.goo.gl/tDYQznmWRsXJ22yo7','_blank')">
+Directions
+</button>
 
 </div>
 
@@ -285,7 +307,7 @@ const petal=document.createElement("div")
 petal.className="petal"
 
 petal.style.left=Math.random()*100+"vw"
-petal.style.animationDuration=(6+Math.random()*6)+"s"
+petal.style.animationDuration=(8+Math.random()*8)+"s"
 
 document.body.appendChild(petal)
 
@@ -295,7 +317,7 @@ petal.remove()
 
 }
 
-setInterval(createPetal,600)
+setInterval(createPetal,700)
 
 </script>
 
