@@ -1,47 +1,113 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
 
 <title>Gayathri & Krishna — Save the Date</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Great+Vibes&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 
 body{
 margin:0;
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-background:radial-gradient(circle,#F8F3E8 0%,#EDE2CF 100%);
-font-family:'Cormorant Garamond',serif;
+background:#F9F5EF;
+font-family:Inter;
 overflow:hidden;
 cursor:pointer;
 }
 
-header{
+/* ---------- INTRO SCREEN ---------- */
+
+#intro{
+height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
 text-align:center;
-margin-bottom:20px;
-z-index:3;
 }
 
-header h1{
-font-family:'Playfair Display',serif;
-letter-spacing:4px;
-font-size:1.7rem;
-color:#7A6A4F;
-margin:0;
+svg{
+width:65%;
+max-width:620px;
 }
 
-header p{
-margin:6px 0 0 0;
-letter-spacing:2px;
-font-size:.9rem;
-color:#8D7B5A;
+/* Kolam draw animation */
+
+.stroke{
+stroke:#C79A3B;
+stroke-width:4;
+fill:none;
+
+stroke-dasharray:800;
+stroke-dashoffset:800;
+
+animation:draw 2s ease forwards;
 }
+
+.delay1{animation-delay:0.3s}
+.delay2{animation-delay:1.2s}
+.delay3{animation-delay:2.1s}
+.delay4{animation-delay:3s}
+
+@keyframes draw{
+to{
+stroke-dashoffset:0;
+}
+}
+
+/* Typography */
+
+.saveDate{
+font-family:'Cormorant Garamond';
+font-size:34px;
+margin-top:20px;
+opacity:0;
+animation:fade 2s forwards;
+animation-delay:3.2s;
+}
+
+.names{
+font-family:'Great Vibes';
+font-size:62px;
+margin-top:10px;
+opacity:0;
+animation:fade 2s forwards;
+animation-delay:4.2s;
+}
+
+.date{
+margin-top:5px;
+font-size:20px;
+opacity:0;
+animation:fade 2s forwards;
+animation-delay:5s;
+}
+
+button{
+margin-top:30px;
+padding:12px 34px;
+border:none;
+border-radius:25px;
+background:#C79A3B;
+color:white;
+font-size:16px;
+cursor:pointer;
+
+opacity:0;
+animation:fade 2s forwards;
+animation-delay:6s;
+}
+
+@keyframes fade{
+to{opacity:1}
+}
+
+/* ---------- LOTUS PARTICLES ---------- */
 
 #lotus-container{
 position:absolute;
@@ -50,31 +116,48 @@ left:0;
 width:100%;
 height:100%;
 pointer-events:none;
-z-index:1;
 overflow:hidden;
 }
 
 .lotus{
 position:absolute;
-font-size:20px;
-opacity:.7;
+font-size:22px;
+opacity:.6;
 animation:float 12s linear infinite;
 }
 
 @keyframes float{
-0%{transform:translateY(100vh) rotate(0deg)}
-100%{transform:translateY(-10vh) rotate(360deg)}
+
+0%{
+transform:translateY(110vh) rotate(0deg);
 }
+
+100%{
+transform:translateY(-10vh) rotate(360deg);
+}
+
+}
+
+/* ---------- INVITATION ---------- */
+
+#site{
+display:none;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+height:100vh;
+}
+
+/* magazine flip */
 
 .magazine-wrapper{
 position:relative;
 width:88vw;
 max-width:440px;
 aspect-ratio:480/680;
+
 filter:drop-shadow(0 20px 50px rgba(0,0,0,0.12));
 perspective:2000px;
-z-index:2;
-display:none;
 }
 
 .page{
@@ -83,12 +166,13 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:transparent;
+
 transition:transform 1.2s cubic-bezier(.645,.045,.355,1),opacity .8s;
+
 backface-visibility:hidden;
 }
 
-.page-back{z-index:1;}
+.page-back{z-index:1}
 
 .page-front{
 z-index:2;
@@ -96,8 +180,11 @@ transform-origin:top center;
 }
 
 body.is-rolled .page-front{
+
 transform:rotateX(110deg) translateY(-100%) scaleY(.4);
+
 opacity:0;
+
 }
 
 img{
@@ -113,61 +200,55 @@ left:5%;
 width:90%;
 height:40%;
 z-index:10;
-cursor:pointer;
-}
-
-#kolamIntro{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:radial-gradient(circle,#F8F3E8 0%,#EDE2CF 100%);
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:5;
-}
-
-#kolamCanvas{
-width:280px;
-height:280px;
-}
-
-#introText{
-margin-top:20px;
-font-family:'Playfair Display',serif;
-letter-spacing:3px;
-font-size:1.3rem;
-color:#7A6A4F;
-opacity:0;
-transition:opacity 1s;
-text-align:center;
 }
 
 </style>
+
 </head>
+
 
 <body onclick="this.classList.toggle('is-rolled')">
 
+
 <div id="lotus-container"></div>
 
-<div id="kolamIntro">
 
-<canvas id="kolamCanvas" width="300" height="300"></canvas>
+<!-- INTRO SCREEN -->
 
-<div id="introText">
-Save the Date<br>
-Gayathri & Krishna
+<div id="intro">
+
+<svg viewBox="0 0 600 300">
+
+<!-- Kolam loops -->
+
+<path class="stroke delay1"
+d="M150 120 Q200 60 250 120 Q200 180 150 120"/>
+
+<path class="stroke delay2"
+d="M350 120 Q400 60 450 120 Q400 180 350 120"/>
+
+<path class="stroke delay3"
+d="M250 200 Q300 150 350 200 Q300 250 250 200"/>
+
+<path class="stroke delay4"
+d="M200 60 Q300 10 400 60"/>
+
+</svg>
+
+<div class="saveDate">Save the Date</div>
+
+<div class="names">Gayathri & Krishna</div>
+
+<div class="date">June 1 • Palakkad</div>
+
+<button onclick="openInvite(event)">Open Invitation</button>
+
 </div>
 
-</div>
 
-<header>
-<h1>Gayathri & Krishna</h1>
-<p>Save the Date · June 2026 · Palakkad</p>
-</header>
+<!-- WEBSITE -->
+
+<div id="site">
 
 <div class="magazine-wrapper">
 
@@ -183,90 +264,62 @@ onclick="event.stopPropagation();"></a>
 </div>
 
 <div class="page page-front">
+
 <img src="pages/page1.jpg">
+
 </div>
 
 </div>
+
+</div>
+
+
 
 <script>
 
-const canvas=document.getElementById("kolamCanvas");
-const ctx=canvas.getContext("2d");
+/* open invite */
 
-ctx.strokeStyle="#C7A75B";
-ctx.lineWidth=2;
+function openInvite(e){
 
-let step=0;
+e.stopPropagation()
 
-function drawKolam(){
+document.getElementById("intro").style.display="none"
 
-ctx.beginPath();
-
-let r=100;
-let cx=150;
-let cy=150;
-
-for(let i=0;i<step;i++){
-
-let angle=i*0.1;
-
-let x=cx+r*Math.cos(angle)*Math.sin(angle);
-let y=cy+r*Math.sin(angle)*Math.cos(angle);
-
-ctx.lineTo(x,y);
+document.getElementById("site").style.display="flex"
 
 }
 
-ctx.stroke();
 
-step+=3;
-
-if(step<250){
-
-requestAnimationFrame(drawKolam);
-
-}else{
-
-document.getElementById("introText").style.opacity=1;
-
-setTimeout(()=>{
-
-document.getElementById("kolamIntro").style.display="none";
-document.querySelector(".magazine-wrapper").style.display="block";
-
-},2000)
-
-}
-
-}
-
-drawKolam();
-
+/* lotus particles */
 
 function createLotus(){
 
-const lotus=document.createElement("div");
+const lotus=document.createElement("div")
 
-lotus.className="lotus";
-lotus.innerHTML="❀";
+lotus.className="lotus"
 
-lotus.style.left=Math.random()*100+"vw";
-lotus.style.fontSize=(18+Math.random()*12)+"px";
-lotus.style.animationDuration=(10+Math.random()*10)+"s";
+lotus.innerHTML="❀"
 
-document.getElementById("lotus-container").appendChild(lotus);
+lotus.style.left=Math.random()*100+"vw"
+
+lotus.style.fontSize=(18+Math.random()*12)+"px"
+
+lotus.style.animationDuration=(10+Math.random()*10)+"s"
+
+document.getElementById("lotus-container").appendChild(lotus)
 
 setTimeout(()=>{
 
-lotus.remove();
+lotus.remove()
 
 },20000)
 
 }
 
-setInterval(createLotus,700);
+setInterval(createLotus,800)
 
 </script>
 
 </body>
+
 </html>
