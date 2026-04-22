@@ -655,21 +655,24 @@
             const name = document.getElementById("guest-name").value;
             const attending = document.getElementById("is-coming").value;
             const count = document.getElementById("guest-count").value;
-
-            if (!name) { alert("Please enter your name"); return; }
-
+        
+            if (!name) { 
+                alert("Please enter your name"); 
+                return; 
+            }
+        
             const submitBtn = document.getElementById("submit-btn");
             submitBtn.innerText = "Sending...";
             submitBtn.disabled = true;
-
+        
             const rsvpData = {
                 name: name,
                 attending: attending,
                 count: count,
-                timestamp: Date.now()
+                timestamp: new Date().toISOString()
             };
-
-            // If Firebase is initialized, push data
+        
+            // If Firebase is initialized
             if (typeof firebase !== 'undefined' && firebase.apps.length > 0) {
                 firebase.database().ref('rsvps').push(rsvpData, (error) => {
                     if (error) {
@@ -678,13 +681,28 @@
                         submitBtn.innerText = "Confirm RSVP";
                         submitBtn.disabled = false;
                     } else {
-                        // Successfully saved to Firebase
+        
+                        //  ALWAYS send to Google Sheets
+                        fetch("https://script.google.com/macros/s/AKfycbzJ7NuIa0jGzo52AiNcHi9wDRKE3j1jnwAJhn8hY6FSl-r-COyMQVUaE9bxbVqQJe491g/exec", {
+                            method: "POST",
+                            body: JSON.stringify(rsvpData)
+                        }).catch(err => console.warn("Sheets backup failed:", err));
+        
                         setTimeout(() => showSuccess(attending, submitBtn), 500);
                     }
                 });
+        
             } else {
-                // Fallback for demo if not configured
+                // If Firebase not available
+        
                 console.log("Mock RSVP Save:", rsvpData);
+        
+                // STILL send to Google Sheets
+                fetch("https://script.google.com/macros/s/AKfycbzJ7NuIa0jGzo52AiNcHi9wDRKE3j1jnwAJhn8hY6FSl-r-COyMQVUaE9bxbVqQJe491g/exec", {
+                    method: "POST",
+                    body: JSON.stringify(rsvpData)
+                }).catch(() => {});
+        
                 setTimeout(() => showSuccess(attending, submitBtn), 800);
             }
         }
