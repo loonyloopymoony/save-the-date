@@ -476,6 +476,73 @@
                 opacity: 0;
             }
         }
+
+        /* ===== VENUE (BLENDED) ===== */
+          .venue-section{
+              margin-top: 30px;
+              text-align: center;
+          }
+          
+          .venue-title{
+              font-family: 'Great Vibes', cursive;
+              font-size: 36px;
+              color: #8b5e3c;
+          }
+          
+          .venue-name{
+              font-size: 14px;
+              letter-spacing: 2px;
+          }
+          
+          .venue-text{
+              font-size: 12px;
+              color: #a67c52;
+              margin: 10px 0;
+          }
+          
+          .venue-qr{
+              width: 140px;
+              border-radius: 8px;
+          }
+          
+          .venue-btn{
+                display: block;              /* important */
+                margin: 15px auto 0 auto;   /* center horizontally */
+                width: fit-content;         /* shrink to content */
+                padding: 10px 24px;
+                border: 1px solid #8b5e3c;
+                color: #8b5e3c;
+                text-decoration: none;
+                font-size: 12px;
+                text-align: center;
+            }
+          
+          /* ===== WEDDING DETAILS ===== */
+          .wedding-details{
+                margin: 60px auto 0 auto;   /* center the entire block */
+                width: 100%;
+                max-width: 700px;           /* slightly wider for better layout */
+                padding: 0 20px;
+                text-align: center;
+            }
+          
+          .details-title{
+              font-family: 'Great Vibes', cursive;
+              font-size: 40px;
+              color: #8b5e3c;
+          }
+
+        html{
+    scroll-behavior:smooth;
+}
+
+.action-buttons{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin:25px 0;
+}
     </style>
 </head>
 
@@ -528,9 +595,41 @@
             </div>
         </div>
 
-        <button class="directions" onclick="window.open('https://maps.app.goo.gl/WQfowdpAXrWCoSFt7')">View
-            Directions</button>
+        <div class="action-buttons">
 
+    <button class="directions"
+        onclick="window.open('https://maps.app.goo.gl/WQfowdpAXrWCoSFt7')">
+        View Directions
+    </button>
+
+    <button class="directions"
+        onclick="document.getElementById('wedding-details').scrollIntoView({behavior:'smooth'})">
+        View Wedding Details
+    </button>
+
+</div>
+        
+    </div>
+
+    <div class="venue-section">
+            <h2 class="venue-title">Venue</h2>
+        
+            <h3 class="venue-name">Ashwathy Kalyana Mandapam</h3>
+        
+            <p class="venue-text">
+                Scan or tap below for directions
+            </p>
+        
+            <a href="https://maps.app.goo.gl/tDYQznmWRsXJ22yo7" target="_blank">
+                <img src="wedding_details/Hall_QR_Final.png" class="venue-qr">
+            </a>
+        
+            <a href="https://maps.app.goo.gl/tDYQznmWRsXJ22yo7" target="_blank"
+               class="venue-btn">
+               ➜ Directions
+            </a>
+        </div>
+      
         <div id="rsvp-section">
             <h2>RSVP</h2>
             <div class="form-group">
@@ -549,6 +648,158 @@
                 <input type="number" id="guest-count" value="1" min="1" max="10">
             </div>
             <button class="submit-btn" id="submit-btn" onclick="submitRSVP()">Confirm RSVP</button>
+        </div>
+    
+
+
+      <div class="wedding-details" id="wedding-details">
+
+            <h2 class="details-title">Wedding Details</h2>
+        
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openTab(event,'schedule')">Event Schedule</button>
+                <button class="tab-btn" onclick="openTab(event,'food')">Food Menu</button>
+            </div>
+        
+            <!-- SCHEDULE -->
+                <div id="schedule" class="tab-content active">
+
+                    <div class="day-divider">Day 1</div>
+                    
+              <!-- Vratham -->
+              <div class="event-row">
+                <div class="event-image">
+                  <img src="wedding_details/vratham_new.jpg">
+                </div>
+                <div class="event-content">
+                  <h3>Vratham</h3>
+                  <p class="tiny">
+                    Before the wedding madness begins, the bride and groom slow things down with prayers and simple rituals to mentally prepare for married life. A sacred yellow thread (Kappu) is tied to their wrists. This period signifies detachment from worldly distractions and a focus on the sanctity of marriage.
+                  </p>
+                </div>
+              </div>
+            
+              <!-- Nischadartham -->
+              <div class="event-row reverse">
+                <div class="event-image">
+                  <img src="wedding_details/engagement.png">
+                </div>
+                <div class="event-content">
+                  <h3>Nischadartham</h3>
+                  <p class="tiny">
+                    This is the traditional engagement where both families officially say yes and exchange blessings.<br>
+                    <em>(A ceremonial “group chat announcement” that the wedding is locked and cannot be cancelled.)</em>
+                  </p>
+                </div>
+              </div>
+            
+              <!-- Maaplai Ezhappu -->
+              <div class="event-row">
+                <div class="event-image">
+                  <img src="wedding_details/maaplai-ezhappu.png">
+                </div>
+                <div class="event-content">
+                  <h3>Mappalai Azhaippu</h3>
+                  <p class="tiny">
+                    The groom is ceremoniously welcomed and escorted to the wedding venue with music and family.
+                  </p>
+                </div>
+              </div>
+
+                    <div class="day-divider">Day 2</div>
+            
+              <!-- Kashi Yatra -->
+              <div class="event-row reverse">
+                <div class="event-image">
+                  <img src="wedding_details/kashi-yatra.png">
+                </div>
+                <div class="event-content">
+                  <h3>Kashi Yatra</h3>
+                  <p class="tiny">
+                    Just when things get serious, the groom dramatically decides he’s off to Kashi to become a monk and avoid marriage altogether. The bride’s father convinces him that married life is actually a better deal.<br>
+                    <em>(Yes, this is scripted. No, the groom is not actually running away.)</em>
+                  </p>
+                </div>
+              </div>
+            
+              <!-- Maalai -->
+              <div class="event-row">
+                <div class="event-image">
+                  <img src="wedding_details/maalai-maatral.png">
+                </div>
+                <div class="event-content">
+                  <h3>Maalai Maathal</h3>
+                  <p class="tiny">
+                    The bride and groom exchange garlands three times, lifted playfully by cousins and friends. It’s light-hearted yet deeply significant – it marks mutual acceptance.
+                  </p>
+                </div>
+              </div>
+            
+              <!-- Oonjal -->
+              <div class="event-row reverse">
+                <div class="event-image">
+                  <img src="wedding_details/oonjal.png">
+                </div>
+                <div class="event-content">
+                  <h3>Oonjal</h3>
+                  <p class="tiny">
+                    The bride and groom are seated on a decorated swing (oonjal) and gently rocked while family members sing traditional songs and shower them with blessings.
+                  </p>
+                </div>
+              </div>
+            
+              <!-- Kanyadanam -->
+              <div class="event-row">
+                <div class="event-image">
+                  <img src="wedding_details/kanyadanam.png">
+                </div>
+                <div class="event-content">
+                  <h3>Kanyadanam</h3>
+                  <p class="tiny">
+                    The bride’s parents place her hand in the groom’s, symbolically entrusting her happiness to him.
+                  </p>
+                </div>
+              </div>
+            
+              <!-- Muhurtham -->
+              <div class="event-row reverse">
+                <div class="event-image">
+                  <img src="wedding_details/muhurtham.jpg">
+                </div>
+                <div class="event-content">
+                  <h3>Muhurtham</h3>
+                  <p class="tiny">
+                    The main wedding moment! At the exact auspicious time, garlands are exchanged, the mangalyam is tied, and the couple officially becomes married.<br>
+                    <em>(Blink and you miss it. This wedding runs on divine punctuality.)</em>
+                  </p>
+                </div>
+              </div>
+            
+              <!-- Sapthapadi -->
+              <div class="event-row">
+                <div class="event-image">
+                  <img src="wedding_details/sapthapadi.jpg">
+                </div>
+                <div class="event-content">
+                  <h3>Sapthapadi</h3>
+                  <p class="tiny">
+                    The couple takes seven steps together, each step representing a promise they make to each other for married life.<br>
+                    <em>(Seven vows. Lifetime validity. No returns or refunds.)</em>
+                  </p>
+                </div>
+              </div>
+            
+            </div>
+        
+            <!-- FOOD -->
+            <div id="food" class="tab-content">
+                <h3>6th June – Reception Dinner</h3>
+                <p class="tiny">Menu coming soon</p>
+        
+                <h3 style="margin-top:10px;">7th June – Breakfast</h3>
+                <p class="tiny">Menu coming soon</p>
+            </div>
+        
         </div>
     </div>
 
@@ -737,6 +988,19 @@
                 buttonElement.innerHTML = "Response registered. Thank you.";
             }
         }
+
+        function openTab(e, tabId) {
+    document.querySelectorAll('.tab-btn').forEach(btn =>
+        btn.classList.remove('active')
+    );
+
+    document.querySelectorAll('.tab-content').forEach(tab =>
+        tab.classList.remove('active')
+    );
+
+    e.target.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+}
     </script>
 
 </body>
