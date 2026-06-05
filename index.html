@@ -170,6 +170,14 @@
             margin-top: 4px;
         }
 
+        .header-sub{
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: #a67c52;
+            margin-top: 2px;
+            text-transform: uppercase;
+        }
+
         .image-container {
             width: 100%;
             max-width: 420px;
@@ -356,81 +364,7 @@
             display: block;
         }
 
-        /* RSVP SECTION */
-        #rsvp-section {
-            margin: 40px auto;
-            padding: clamp(20px, 5vw, 40px);
-            background: rgba(139, 94, 60, 0.03);
-            border: 1px solid rgba(139, 94, 60, 0.15);
-            border-radius: 8px;
-            width: 100%;
-            max-width: 500px;
-            box-sizing: border-box;
-            text-align: left;
-        }
-
-        #rsvp-section h2 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 42px;
-            text-align: center;
-            margin-bottom: 25px;
-            color: #8b5e3c;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #a67c52;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.5);
-            border: 1px solid rgba(139, 94, 60, 0.2);
-            border-radius: 4px;
-            box-sizing: border-box;
-            color: #4a3728;
-            font-family: inherit;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: #8b5e3c;
-            background: white;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 14px;
-            background: #8b5e3c;
-            color: #fdf6f0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            font-family: 'Cinzel', serif;
-            font-weight: 600;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .submit-btn:hover {
-            background: #a67c52;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(139, 94, 60, 0.2);
-        }
+        
 
         /* BUTTONS HOVER & CURSOR */
         .open-btn,
@@ -477,7 +411,7 @@
             }
         }
 
-        /* ===== VENUE (BLENDED) ===== */
+      /* ===== VENUE (BLENDED) ===== */
           .venue-section{
               margin-top: 30px;
               text-align: center;
@@ -531,18 +465,128 @@
               font-size: 40px;
               color: #8b5e3c;
           }
+          
+          /* TABS */
+          .tabs{
+              display:flex;
+              justify-content:center;
+              gap:10px;
+              margin:20px 0;
+              
+          }
+          
+          .tab-btn{
+              padding:8px 16px;
+              border:1px solid #8b5e3c;
+              background:transparent;
+              font-family:'Cinzel', serif;
+              font-size:12px;
+              text-align: left;
+          }
+          
+          .tab-btn.active{
+              background:#8b5e3c;
+              color:#fff;
+          }
+          
+          /* TAB CONTENT */
+          .tab-content{
+              display:none;
+              text-align:left;
+          }
+          
+          .tab-content.active{
+              display:block;
+          }
+          
+          /* EVENTS */
+          .event-row{
+              display:flex;
+              gap:15px;
+              margin-bottom:25px;
+              align-items:center;
+          }
 
-        html{
-    scroll-behavior:smooth;
-}
+         .event-content{
+                width:50%;
+            }
+            
+         .event-content h3{
+                font-family:'Playfair Display', serif;
+                font-size:24px;
+                color:#8b5e3c;
+                margin:0;
+            }
+            
+         .event-content p{
+                margin-top:8px;
+                line-height:1.8;
+                font-size:14px;
+            }
+        
+          .event-image{
+                width:50%;
+            }
+        
+          .event-image img{
+                width:100%;
+                height:auto;          /* key change */
+                max-height:280px;     /* keeps layout neat */
+                object-fit:contain;   /* shows full image */
+                border-radius:20px;
+                box-shadow:0 15px 40px rgba(0,0,0,0.1);
+            }
+        
+          .event-row.reverse{
+              flex-direction:row-reverse;
+          }
+          
+          .event-row img{
+              width:45%;
+              border-radius:10px;
+          }
+          
+          .event-row h3{
+              margin:0;
+              font-size:15px;
+          }
+          
+          .event-row p{
+              font-size:12px;
+          }
 
-.action-buttons{
-    display:flex;
-    justify-content:center;
-    gap:12px;
-    flex-wrap:wrap;
-    margin:25px 0;
-}
+         .day-divider{
+                font-family: 'Great Vibes', cursive;
+                font-size: 34px;
+                color: #8b5e3c;
+                text-align: center;
+                margin: 40px 0 20px;
+                position: relative;
+            }
+            
+            /* optional elegant lines */
+            .day-divider::before,
+            .day-divider::after{
+                content: "";
+                display: inline-block;
+                width: 40px;
+                height: 1px;
+                background: rgba(139,94,60,0.4);
+                margin: 0 10px;
+                vertical-align: middle;
+            }
+          
+          /* MOBILE */
+          @media (max-width:600px){
+              .event-row{
+                  flex-direction:column !important;
+              }
+          
+              .event-row img{
+                  width:100%;
+              }
+          }
+      
     </style>
 </head>
 
@@ -578,8 +622,8 @@
 
     <div id="invite" style="display: none;">
         <div class="header">
-            <div class="header-title">SAVE THE DATE</div>
             <div class="header-names">Gayathri & Krishna</div>
+            <div class="header-sub">June 6 & 7 • Palakkad</div>
         </div>
 
         <div class="image-container">
@@ -598,7 +642,7 @@
         <div class="action-buttons">
 
     <button class="directions"
-        onclick="window.open('https://maps.app.goo.gl/WQfowdpAXrWCoSFt7')">
+        onclick="window.open('https://maps.app.goo.gl/tDYQznmWRsXJ22yo7')">
         View Directions
     </button>
 
@@ -608,10 +652,8 @@
     </button>
 
 </div>
-        
-    </div>
 
-    <div class="venue-section">
+          <div class="venue-section">
             <h2 class="venue-title">Venue</h2>
         
             <h3 class="venue-name">Ashwathy Kalyana Mandapam</h3>
@@ -630,29 +672,11 @@
             </a>
         </div>
       
-        <div id="rsvp-section">
-            <h2>RSVP</h2>
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" id="guest-name" placeholder="Enter your name">
-            </div>
-            <div class="form-group">
-                <label>Will you attend?</label>
-                <select id="is-coming">
-                    <option value="yes">Joyfully Attending</option>
-                    <option value="no">Regretfully Declining</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Number of Guests</label>
-                <input type="number" id="guest-count" value="1" min="1" max="10">
-            </div>
-            <button class="submit-btn" id="submit-btn" onclick="submitRSVP()">Confirm RSVP</button>
-        </div>
+        
     
 
 
-      <div class="wedding-details" id="wedding-details">
+     <div class="wedding-details" id="wedding-details">
 
             <h2 class="details-title">Wedding Details</h2>
         
@@ -803,28 +827,9 @@
         </div>
     </div>
 
-    <!-- Firebase and Confetti Libraries -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
+    
     <script>
-        // FIREBASE CONFIGURATION (Placeholder)
-        const firebaseConfig = {
-            apiKey: "AIzaSyAsefRTS0k97-bPuIUuaekR8gTlq--yDKY",
-            authDomain: "g3kr7-be157.firebaseapp.com",
-            databaseURL: "https://g3kr7-be157-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "g3kr7-be157",
-            storageBucket: "g3kr7-be157.firebasestorage.app",
-            messagingSenderId: "172928038195",
-            appId: "1:172928038195:web:b2ac0522086e666be7fa46",
-            measurementId: "G-0QEMXGB7NE"
-        };
-
-        // Initialize Firebase
-        if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
-            firebase.initializeApp(firebaseConfig);
-        }
+        
 
         function openInvite() {
             document.getElementById("intro").style.display = "none";
@@ -902,105 +907,23 @@
         const countdownInterval = setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        function submitRSVP() {
-            const name = document.getElementById("guest-name").value;
-            const attending = document.getElementById("is-coming").value;
-            const count = document.getElementById("guest-count").value;
         
-            if (!name) { 
-                alert("Please enter your name"); 
-                return; 
-            }
+
         
-            const submitBtn = document.getElementById("submit-btn");
-            submitBtn.innerText = "Sending...";
-            submitBtn.disabled = true;
+
+      function openTab(e, tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn =>
+                btn.classList.remove('active')
+            );
         
-            const rsvpData = {
-                name: name,
-                attending: attending,
-                count: count,
-                timestamp: new Date().toISOString()
-            };
+            document.querySelectorAll('.tab-content').forEach(tab =>
+                tab.classList.remove('active')
+            );
         
-            // If Firebase is initialized
-            if (typeof firebase !== 'undefined' && firebase.apps.length > 0) {
-                firebase.database().ref('rsvps').push(rsvpData, (error) => {
-                    if (error) {
-                        console.error("Error saving RSVP:", error);
-                    
-                        // STILL send to Google Sheets even if Firebase fails
-                        fetch("https://script.google.com/macros/s/AKfycbzJ7NuIa0jGzo52AiNcHi9wDRKE3j1jnwAJhn8hY6FSl-r-COyMQVUaE9bxbVqQJe491g/exec", {
-                            method: "POST",
-                            body: JSON.stringify(rsvpData)
-                        }).catch(() => {});
-                    
-                        // ✅ Show success anyway (since we saved to Sheets)
-                        setTimeout(() => showSuccess(attending, submitBtn), 500);
-                    } else {
-        
-                        //  ALWAYS send to Google Sheets
-                        fetch("https://script.google.com/macros/s/AKfycbzJ7NuIa0jGzo52AiNcHi9wDRKE3j1jnwAJhn8hY6FSl-r-COyMQVUaE9bxbVqQJe491g/exec", {
-                            method: "POST",
-                            body: JSON.stringify(rsvpData)
-                        }).catch(err => console.warn("Sheets backup failed:", err));
-        
-                        setTimeout(() => showSuccess(attending, submitBtn), 500);
-                    }
-                });
-        
-            } else {
-                // If Firebase not available
-        
-                console.log("Mock RSVP Save:", rsvpData);
-        
-                // STILL send to Google Sheets
-                fetch("https://script.google.com/macros/s/AKfycbzJ7NuIa0jGzo52AiNcHi9wDRKE3j1jnwAJhn8hY6FSl-r-COyMQVUaE9bxbVqQJe491g/exec", {
-                    method: "POST",
-                    body: JSON.stringify(rsvpData)
-                }).catch(() => {});
-        
-                setTimeout(() => showSuccess(attending, submitBtn), 800);
-            }
+            e.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
         }
-
-        function showSuccess(attending, buttonElement) {
-            buttonElement.disabled = true;
-            buttonElement.style.cursor = "default";
-
-            if (attending === "yes") {
-                buttonElement.innerHTML = "✧ Thank you! RSVP received ✧";
-
-                // Fire confetti from button position
-                const rect = buttonElement.getBoundingClientRect();
-                const x = (rect.left + (rect.width / 2)) / window.innerWidth;
-                const y = (rect.top + (rect.height / 2)) / window.innerHeight;
-
-                // Force high z-index so it doesn't get hidden behind anything
-                confetti({
-                    particleCount: 150,
-                    spread: 80,
-                    origin: { x: x, y: y },
-                    zIndex: 9999,
-                    colors: ['#f497a6', '#f3b0c3', '#d4af37', '#8b5e3c']
-                });
-            } else {
-                buttonElement.innerHTML = "Response registered. Thank you.";
-            }
-        }
-
-        function openTab(e, tabId) {
-    document.querySelectorAll('.tab-btn').forEach(btn =>
-        btn.classList.remove('active')
-    );
-
-    document.querySelectorAll('.tab-content').forEach(tab =>
-        tab.classList.remove('active')
-    );
-
-    e.target.classList.add('active');
-    document.getElementById(tabId).classList.add('active');
-}
+      
     </script>
 
 </body>
